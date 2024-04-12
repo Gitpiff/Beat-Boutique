@@ -1,7 +1,10 @@
 # Beat Boutique
 
+Link: https://beat-boutique.onrender.com/
+
 # DB Schema
 
+![DB Schema](images/DB_Schema.png)
 
 
 # Flask React Project
