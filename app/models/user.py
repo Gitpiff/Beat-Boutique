@@ -19,6 +19,11 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, onupdate=func.now())
 
+    products = db.relationship('Product', back_populates='user')
+    reviews = db.relationship('Review', back_populates='user')
+    shopping_cart = db.relationship('ShoppingCart', back_populates='user', uselist=False)
+    transactions = db.relationship('Transaction', back_populates='user')
+
     @property
     def password(self):
         return self.hashed_password
