@@ -5,7 +5,7 @@
 
 # DB -  Schema
 
-<img src="./beat_boutique_schema.png" width=1200 height=800>
+<img src="./beat_boutique_schema.png" width=1000 height=800>
 <br>
 <br>
 <br>
