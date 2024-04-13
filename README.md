@@ -1,132 +1,196 @@
-# Flask React Project
+# Beat Boutique Docs
 
-This is the starter for the Flask React project.
+### Link to the site
+[Beat Boutique](https://beat-boutique.onrender.com)
 
-## Getting started
+# DB -  Schema
 
-1. Clone this repository (only this branch).
+<img src="./beat_boutique_schema.png" width=1200 height=800>
+<br>
+<br>
+<br>
+<br>
 
-2. Install dependencies.
+# Beat Boutique - Features
 
-   ```bash
-   pipenv install -r requirements.txt
-   ```
+## Products
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+### Get all Products
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+### Users should be able to view all Products.
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+As a user When I navigate to the "Products" section of the platform, I should see a list of all available products.
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+As a user each product in the list/grid should display its name, price, and an image thumbnail for easy identification.
 
-   ```bash
-   pipenv shell
-   ```
+As a user by clicking on a product should take me to its detailed page for more information.
 
-   ```bash
-   flask db upgrade
-   ```
+- Require Authentication: False
+- Request
+  - Method: GET
+  - URL: /products
 
-   ```bash
-   flask seed all
-   ```
+### Users should be able to create a Product
 
-   ```bash
-   flask run
-   ```
+As a log in user I want to be able to create a new product listing.
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+New listing should include name, item, price, image(s) and inventory -how many items are available for sale-
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+As a user once created, the product should appear in the product catalog for users to view and purchase.
 
-## Deployment through Render.com
+- Require Authentication: True
+- Request
+  - Method: POST
+  - URL: /products
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+### Users should be able to update their Product(s)
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+As a user I want to be able to update the details of my existing product listings.
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+As a user all changes made to the product details should be reflected accurately in the system once the update is confirmed.
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+- Require Authentication: True
+- Require proper authorization: product must belong to the current user
+- Request
+  - Method: PUT
+  - URL: /products
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+### Users should be able to delete their Product(s)
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+As a user I want to be able to delete my existing product listings.
 
-Start by giving your application a name.
+As a user before confirming the deletion, the system should display a confirmation dialog to ensure that the user intends to delete the selected product(s)
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
+- Require Authentication: True
+- Require proper authorization: product must belong to the current user
+- Request
+  - Method: DELETE
+  - URL: /products
 
-Select "Free" as your Instance Type.
 
-### Add environment variables
 
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
+## Reviews
 
-Add the following keys and values in the Render GUI form:
+### Users should be able to view all reviews on a Product
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
+As a user I want to be able to view all the reviews associated with a product.
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+As a user When I navigate to a product detail page, I should see a section dedicated to displaying product reviews.
 
-Add the following keys and values:
+- Require Authentication: False
+- Request
+  - Method: GET
+  - URL: /products/<product_id>/reviews
 
-- DATABASE_URL (copy value from the **External Database URL** field)
+### Users should be able to create a review for a Product
 
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
+As a log in user I want to be able to create a review for a product I have purchased or used.
 
-### Deploy
+As a user my review should be displayed in the product's review section along with other reviews.
 
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
+- Require Authentication: True
+- Request
+  - Method: POST
+  - URL: /products/<product_id>/reviews
 
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
+### Users should be able to update their review for a Product
 
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
+As a user I want to be able to update a review I have previously submitted for a product.
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
-# Beat-Boutique
+As a user I should be able to make changes to any of the reviews I made before.
+
+- Require Authentication: True
+- Require proper authorization: product must belong to the current user
+- Request
+  - Method: PUT
+  - URL: /products/<product_id>/reviews
+
+### Users should be able to delete their review from a Product
+
+As a user I want to be able to delete a review I have previously submitted for a product.
+
+As a user my review should be permanently removed from the product's review section.
+
+- Require Authentication: True
+- Require proper authorization: product must belong to the current user
+- Request
+  - Method: DELETE
+  - URL: /products/<product_id>/reviews
+
+
+
+## Shopping Cart
+
+### Users should be able to view all products added to their cart
+
+As a user I want to be able to view all the products I have added to my cart.
+
+As a user the total price for all items in the cart should be clearly displayed at the bottom of the page.
+
+A "Proceed To Checkout" button should be displayed under the total price 
+
+- Require Authentication: True
+- Request
+  - Method: GET
+  - URL: /cart
+
+### Users should be able to add products to their shopping cart
+
+As a user I want to be able to add products to my shopping cart.
+
+As a user by Clicking on the "Add to Cart" button should add the selected product to my shopping cart.
+
+- Require Authentication: True
+- Request
+  - Method: POST
+  - URL: /cart
+
+### Users should be able to remove products from their shopping cart
+
+As a user I want to be able to remove products from my shopping cart.
+
+As a user upon removal, the selected product should be immediately removed from my cart.
+
+If quantity reaches 0, remove from shopping cart
+
+- Require Authentication: True
+- Request
+  - Method: DELETE
+  - URL: /cart
+
+### Users should be able to preform a "transaction" to complete their purchase
+
+As a user, I want to be able to perform a transaction to finalize my purchase.
+
+As a user I should receive a confirmation message that my order was process.
+
+- Require Authentication: True
+- Request
+  - Method: POST
+  - URL: /cart/checkout
+
+
+
+## Search
+
+### Users should be able to search for Products or sellers
+
+As a user I want to be able to search for products or sellers by entering relevant keywords or seller's usernames, so that I can easily find the items or sellers I'm interested in.
+
+As a user I want to be able to filter for products or sellers.
+
+- Require Authentication: False
+- Request
+  - Method: None
+  - URL: /
+
+### Users should be able to view the results of their search
+
+As a user upon clicking on an item I then should be directed to the item's page details.
+
+As a user I should only see the items or sellers based on the keywords on the page.
+
+- Require Authentication: False
+- Request
+  - Method: None
+  - URL: /
