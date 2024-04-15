@@ -16,9 +16,9 @@ class Review(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=func.now())
 
     user = db.relationship('User', back_populates='reviews')
-    product = db.relatship('Product', back_populates='reviews')
+    product = db.relationship('Product', back_populates='reviews')
 
-    def to_disct(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'user_id': self.user_id,

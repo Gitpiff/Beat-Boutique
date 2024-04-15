@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
 
 class Product(db.Model):
-    __table__ = 'products'
+    __tablename__ = 'products'
 
     if environment == 'production':
         __table_args__ = {'schema': SCHEMA}
