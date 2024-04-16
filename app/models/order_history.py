@@ -14,8 +14,8 @@ class OrderHistory(db.Model):
     items = db.Column(JSON, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, onupdate=func.now())
-
-    user = db.relationship('User', back_populates='order_history')
+    # Future Feature
+    # user = db.relationship('User', back_populates='order_history')
 
     def to_dict(self):
         return {

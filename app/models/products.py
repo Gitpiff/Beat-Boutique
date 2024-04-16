@@ -12,12 +12,13 @@ class Product(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
     price = db.Column(db.Numeric(10,2), nullable=False)
-    inventory = db.Column(db.Boolean, nullable=False, default=True)
+    inventory = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, onupdate=func.now())
 
     user = db.relationship('User', back_populates='products')
-
+    images = db.relationship('ProductImage', back_populates='product')
+    reviews = db.relationship('Review', back_populates='product')
     def to_dict(self):
         return {
             'id': self.id,
