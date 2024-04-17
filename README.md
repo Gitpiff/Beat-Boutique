@@ -6,6 +6,7 @@
 # DB -  Schema
 
 <img src="./beat_boutique_schema.png" width=800 height=800>
+
 <br>
 <br>
 <br>
@@ -193,4 +194,7 @@ As a user I should only see the items or sellers based on the keywords on the pa
 - Require Authentication: False
 - Request
   - Method: None
+
   - URL: /
+
+ 
