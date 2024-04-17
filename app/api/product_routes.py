@@ -14,7 +14,7 @@ def index():
 
 
 @product_routes.route("/", methods=["POST"])
-# @login_required
+@login_required
 def create_new_product():
     form = Products()
 
@@ -22,7 +22,7 @@ def create_new_product():
     if form.validate_on_submit():
         new_product = Product(
             name=form.data["name"],
-            owner_id=1,
+            owner_id=current_user.id,
             description=form.data["description"],
             price=form.data["price"],
             inventory=form.data["inventory"],
@@ -47,7 +47,7 @@ def get_product_by_id(product_id):
 
 
 @product_routes.route("/<int:product_id>", methods=["PUT"])
-# @login_required
+@login_required
 def update_products(product_id):
     product = Product.query.get(product_id)
 
@@ -71,11 +71,15 @@ def update_products(product_id):
 
 
 @product_routes.route("/<int:product_id>", methods=["DELETE"])
+@login_required
 def delete_product(product_id):
     product = Product.query.get(product_id)
 
     if not product:
         return jsonify({"error": "Product not found"})
+
+    if current_user.id != product.owner_id:
+        return jsonify({"error": "unauthorized"})
 
     db.session.delete(product)
     db.session.commit()
