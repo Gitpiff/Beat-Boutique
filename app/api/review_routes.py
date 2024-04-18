@@ -1,17 +1,17 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from ..forms.reviews import Reviews
-from ..models import db, Review
+from ..models import db, Review, Product
 
 review_routes = Blueprint("reviews", __name__)
 
-# Delete
-# Edit 
 
-# Get All Reviews By ProductId
 @review_routes.route('/<int:product_id>')
 def reviews(product_id):
-    # reviews = Review.query.get(product_id)
+    """
+    Gets all product's reviews
+    """
+    reviews = Review.query.get(product_id)
     reviews = Review.query.filter_by(product_id=product_id).all()
 
     if not reviews:
@@ -22,20 +22,24 @@ def reviews(product_id):
 
 
 
-# Post a new review
+
 @review_routes.route('/<int:product_id>', methods=["POST"])
-# @login_required
+@login_required
 def new_review(product_id):
+    """
+    Creates a review
+    """
+    product = Product.query.get(product_id)
     form = Reviews()
     
-    # if current_user.id != review.user_id:
-    #     return jsonify({"error": "unauthorized"})
+    if current_user.id == product.owner_id:
+        return jsonify({"error": "You can't review your own product"})
 
     form.csrf_token.data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         new_review = Review(
-            user_id = form.data["user_id"],
-            product_id = form.data["product_id"],
+            user_id = current_user.id,
+            product_id = product_id,
             rating = form.data["rating"],
             review = form.data["review"]
         )
@@ -48,17 +52,20 @@ def new_review(product_id):
     return form.errors, 401
 
 
-# Edit Review
+
 @review_routes.route("/<int:review_id>", methods=["PUT"])
-# @login_required
+@login_required
 def update_review(review_id):
+    """
+    Creates a review
+    """
     review = Review.query.get(review_id)
 
     if not review:
        return jsonify({"error": "Review not found"}) 
 
-    # if current_user.id != review.owner_id:
-    #     return jsonify({"error": "Forbidden"})
+    if current_user.id != review.owner_id:
+        return jsonify({"error": "Forbidden"})
     
     data = request.json
 
@@ -71,17 +78,20 @@ def update_review(review_id):
     return review.to_dict()
 
 
-# Delete Review
+
 @review_routes.route("/<int:review_id>", methods=["DELETE"])
-# @login_required
+@login_required
 def delete_review(review_id):
+    """
+    Delete a review
+    """
     review = Review.query.get(review_id)
 
     if not review:
        return jsonify({"error": "Review not found"}) 
 
-    # if current_user.id != review.owner_id:
-    #     return jsonify({"error": "Forbidden"})
+    if current_user.id != review.owner_id:
+        return jsonify({"error": "Forbidden"})
 
     db.session.delete(review)
     db.session.commit()
