@@ -57,6 +57,7 @@ def update_user(id):
         return {'errors': ['User not found']}, 404
     if user.id != current_user.id:
         return {'errors': ['Unauthorized']}, 401
+    
     form = SignUpForm()
     form.csrf_token.data = request.cookies["csrf_token"]
     if form.validate_on_submit():
