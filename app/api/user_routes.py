@@ -1,20 +1,20 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User
-from app.forms import LoginForm, SignUpForm
+from app.forms import LoginForm, SignUpForm, UpdateUserForm
 from flask_login import login_user, logout_user
 
 user_routes = Blueprint('users', __name__)
 
 
-@user_routes.route('/')
-@login_required
-def users():
-    """
-    Query for all users and returns them in a list of user dictionaries
-    """
-    users = User.query.all()
-    return {'users': [user.to_dict() for user in users]}
+# @user_routes.route('/')
+# @login_required
+# def users():
+#     """
+#     Query for all users and returns them in a list of user dictionaries
+#     """
+#     users = User.query.all()
+#     return {'users': [user.to_dict() for user in users]}
 
 
 @user_routes.route('/<int:id>')
@@ -57,8 +57,8 @@ def update_user(id):
         return {'errors': ['User not found']}, 404
     if user.id != current_user.id:
         return {'errors': ['Unauthorized']}, 401
-    
-    form = SignUpForm()
+
+    form = UpdateUserForm()
     form.csrf_token.data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         user.username = form.username.data
@@ -84,20 +84,20 @@ def delete_user(id):
     db.session.commit()
     return {'message': 'User deleted successfully'}
 
-@user_routes.route('/login', methods=['POST'])
-def login():
-    """
-    Logs in a user. Public (no authentication required).
-    """
-    form = LoginForm()
-    form.csrf_token.data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and user.check_password(form.password.data):
-            login_user(user)
-            return user.to_dict()
-        return {'errors': ['Invalid credentials']}, 401
-    return {'errors': form.errors}, 400
+# @user_routes.route('/login', methods=['POST'])
+# def login():
+#     """
+#     Logs in a user. Public (no authentication required).
+#     """
+#     form = LoginForm()
+#     form.csrf_token.data = request.cookies["csrf_token"]
+#     if form.validate_on_submit():
+#         user = User.query.filter_by(email=form.email.data).first()
+#         if user and user.check_password(form.password.data):
+#             login_user(user)
+#             return user.to_dict()
+#         return {'errors': ['Invalid credentials']}, 401
+#     return {'errors': form.errors}, 400
 
 @user_routes.route('/signup', methods=['POST'])
 def signup():
@@ -128,11 +128,11 @@ def get_current_user():
     """
     return current_user.to_dict()
 
-@user_routes.route('/logout', methods=['POST'])
-@login_required
-def logout():
-    """
-    Logs out the current user. Requires authentication (login required).
-    """
-    logout_user()
-    return {'message': 'User logged out successfully'}
+# @user_routes.route('/logout', methods=['POST'])
+# @login_required
+# def logout():
+#     """
+#     Logs out the current user. Requires authentication (login required).
+#     """
+#     logout_user()
+#     return {'message': 'User logged out successfully'}
