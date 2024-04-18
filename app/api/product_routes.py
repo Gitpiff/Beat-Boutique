@@ -106,6 +106,7 @@ def delete_product(product_id):
 
 
 @product_routes.route("/images/<int:product_id>", methods=["POST"])
+@login_required
 def add_new_image(product_id):
     """
     Creates new product image
