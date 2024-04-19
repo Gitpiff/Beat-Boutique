@@ -31,14 +31,15 @@ def new_review(product_id):
     """
     product = Product.query.get(product_id)
     form = Reviews()
+    user_id = current_user.id
     
-    if current_user.id == product.owner_id:
+    if user_id == product.owner_id:
         return jsonify({"error": "You can't review your own product"})
 
     form.csrf_token.data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         new_review = Review(
-            user_id = current_user.id,
+            user_id = user_id,
             product_id = product_id,
             rating = form.data["rating"],
             review = form.data["review"]
@@ -57,7 +58,7 @@ def new_review(product_id):
 @login_required
 def update_review(review_id):
     """
-    Creates a review
+    Edits a review
     """
     review = Review.query.get(review_id)
 
@@ -90,7 +91,7 @@ def delete_review(review_id):
     if not review:
        return jsonify({"error": "Review not found"}) 
 
-    if current_user.id != review.owner_id:
+    if current_user.id != review.user_id:
         return jsonify({"error": "Forbidden"})
 
     db.session.delete(review)
