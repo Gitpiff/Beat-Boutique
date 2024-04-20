@@ -3,7 +3,7 @@ from sqlalchemy import func, Enum
 import enum
 
 
-class TypeChoices(Enum):
+class TypeChoices(enum.Enum):
     MUSICAL_INSTRUMENTS = 'Musical Instruments'
     CLOTHING = 'Clothing'
     TAPES = 'Tapes'
@@ -23,7 +23,7 @@ class Product(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
-    type = db.Column(Enum(TypeChoices), nullable=False)
+    type = db.Column(db.Enum(TypeChoices), nullable=False)
     price = db.Column(db.Numeric(10,2), nullable=False)
     inventory = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
