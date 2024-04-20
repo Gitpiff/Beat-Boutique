@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from sqlalchemy import func
-from enum import Enum
+from sqlalchemy import func, Enum 
+
 
 
 class TypeChoices(Enum):
@@ -23,7 +23,7 @@ class Product(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
-    type = db.Column(db.Enum(TypeChoices, values_callable = lambda x: [type.value for type in x]), nullable=False)
+    type = db.Column(db.Enum(TypeChoices, values_callable = lambda options:[type.value for type in options]), nullable=False)
     price = db.Column(db.Numeric(10,2), nullable=False)
     inventory = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
