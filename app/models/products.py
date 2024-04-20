@@ -38,7 +38,7 @@ class Product(db.Model):
             'owner_id': self.owner_id,
             'name': self.name,
             'description': self.description,
-            'type': self.type.name,
+            'type': self.type,
             'price': self.price,
             'inventory': self.inventory,
             'created_at': self.created_at,
