@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
-    sa.Column("type", sa.Enum("Clothing", "Tapes", "CDs", "Pins", "Musical Instruments")),
+    sa.Column("type", sa.Enum("Clothing", "Tapes", "CDs", "Pins", "Musical Instruments", name = "type")),
     sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=False),
     sa.Column('inventory', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
