@@ -1,6 +1,18 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
+from enum import Enum
 
+
+class TypeChoices(Enum):
+    MUSICAL_INSTRUMENTS = 'Musical Instruments'
+    CLOTHING = 'Clothing'
+    TAPES = 'Tapes'
+    CDS = 'CDs'
+    PINS = 'Pins'
+
+    @staticmethod
+    def fetch_names():
+        return [c.value for c in TypeChoices]
 class Product(db.Model):
     __tablename__ = 'products'
 
@@ -11,6 +23,7 @@ class Product(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
+    type = db.Column(db.Enum(TypeChoices, values_callable = lambda x:[str(type.value) for type in TypeChoices]))
     price = db.Column(db.Numeric(10,2), nullable=False)
     inventory = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
@@ -25,6 +38,7 @@ class Product(db.Model):
             'owner_id': self.owner_id,
             'name': self.name,
             'description': self.description,
+            'type': self.type,
             'price': self.price,
             'inventory': self.inventory,
             'created_at': self.created_at,
