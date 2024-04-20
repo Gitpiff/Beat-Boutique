@@ -23,7 +23,7 @@ class Product(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text)
-    type = db.Column(Enum(TypeChoices, values_callable = lambda options:[type.value for type in options]), nullable=False)
+    type = db.Column(Enum(TypeChoices), nullable=False)
     price = db.Column(db.Numeric(10,2), nullable=False)
     inventory = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
@@ -38,7 +38,7 @@ class Product(db.Model):
             'owner_id': self.owner_id,
             'name': self.name,
             'description': self.description,
-            'type': self.type,
+            'type': self.type.name,
             'price': self.price,
             'inventory': self.inventory,
             'created_at': self.created_at,
