@@ -3,5 +3,6 @@ from wtforms import StringField
 from wtforms.validators import DataRequired
 
 
-class ProductImages(FlaskForm):
+class ProductImageForm(FlaskForm):
     image_url = StringField("image_url", validators=[DataRequired()])
+

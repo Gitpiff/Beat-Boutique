@@ -2,8 +2,10 @@ from sqlalchemy.orm import joinedload
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from ..forms.products import Products
-from ..forms.product_image import ProductImages
+from ..forms.product_image import ProductImageForm
 from ..models import db, Product, ProductImage
+from ..aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
+
 
 product_routes = Blueprint("products", __name__)
 
@@ -105,6 +107,32 @@ def delete_product(product_id):
     return jsonify({"message": "Product was deleted successful"})
 
 
+# @product_routes.route("/images/<int:product_id>", methods=["POST"])
+# @login_required
+# def add_new_image(product_id):
+#     """
+#     Creates new product image
+#     """
+#     product = Product.query.get(product_id)
+
+#     if not product:
+#         return jsonify({"error": "Product not found"}), 400
+
+#     form = ProductImages()
+
+#     form.csrf_token.data = request.cookies["csrf_token"]
+#     if form.validate_on_submit():
+#         new_image = ProductImage(
+#             product_id=product.to_dict()["id"], image_url=form.data["image_url"]
+#         )
+
+#         db.session.add(new_image)
+#         db.session.commit()
+
+#         return new_image.to_dict()
+
+#     return form.errors, 401
+
 @product_routes.route("/images/<int:product_id>", methods=["POST"])
 @login_required
 def add_new_image(product_id):
@@ -112,24 +140,30 @@ def add_new_image(product_id):
     Creates new product image
     """
     product = Product.query.get(product_id)
-
     if not product:
-        return jsonify({"error": "Product not found"}), 400
+        return jsonify({"error": "Product not found"}), 404
 
-    form = ProductImages()
+    if current_user.id != product.owner_id:
+        return jsonify({"error": "Unauthorized"}), 403
 
+    form = ProductImageForm()
     form.csrf_token.data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        new_image = ProductImage(
-            product_id=product.to_dict()["id"], image_url=form.data["image_url"]
-        )
 
+    if form.validate_on_submit():
+        image = form.data["image"]
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        if "url" not in upload:
+            return jsonify(upload), 400
+
+        url = upload["url"]
+        new_image = ProductImage(product_id=product.id, image_url=url)
         db.session.add(new_image)
         db.session.commit()
+        return new_image.to_dict(), 201
 
-        return new_image.to_dict()
-
-    return form.errors, 401
+    return jsonify({"error": "Validation failed", "errors": form.errors}), 422
 
 
 @product_routes.route("/images/<int:image_id>", methods=["DELETE"])
@@ -148,6 +182,8 @@ def delete_image(image_id):
 
     if current_user.id != products.to_dict().owner_id:
         return jsonify({"error": "unauthorized"})
+
+    remove_file_from_s3(image_product.image_url)
 
     db.session.delete(image_product)
     db.session.commit()
