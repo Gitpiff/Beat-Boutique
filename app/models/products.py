@@ -3,7 +3,7 @@ from sqlalchemy import func, Enum
 import enum
 
 
-class TypeChoices(enum.Enum):
+class TypeChoices(Enum):
     MUSICAL_INSTRUMENTS = 'Musical Instruments'
     CLOTHING = 'Clothing'
     TAPES = 'Tapes'
