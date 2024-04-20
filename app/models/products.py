@@ -12,7 +12,7 @@ class TypeChoices(Enum):
 
     @staticmethod
     def fetch_names():
-        return [c.value for c in TypeChoices]
+        return [c.value for c in TypeChoices.__members__.values()]
 class Product(db.Model):
     __tablename__ = 'products'
 
@@ -38,7 +38,7 @@ class Product(db.Model):
             'owner_id': self.owner_id,
             'name': self.name,
             'description': self.description,
-            'type': self.type,
+            'type': self.type.name,
             'price': self.price,
             'inventory': self.inventory,
             'created_at': self.created_at,
