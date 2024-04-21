@@ -32,4 +32,5 @@ class Product(db.Model):
             "price": self.price,
             "inventory": self.inventory,
             "images": [image.to_dict() for image in self.images],
+            "reviews": [review.to_dict() for review in self.reviews],
         }
