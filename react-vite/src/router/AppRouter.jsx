@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
-import LandingPage from '.components/LandingPage';
+import LandingPage from '../components/LandingPage';
 import ProductDetails from '../components/ProductDetails';
 
 
@@ -29,3 +29,5 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+//Do we need one for writing a review?
