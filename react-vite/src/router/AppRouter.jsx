@@ -7,6 +7,24 @@ import CreateProduct from '../components/CreateProduct';
 import CreateReview from '../components/CreateReview';
 import ManageProducts from '../components/ManageProducts';
 
+// function Layout() {
+//   const dispatch = useDispatch();
+//   const [isLoaded, setIsLoaded] = useState(false);
+
+//   useEffect(() => {
+//     dispatch(sessionActions.restoreUser()).then(() => {
+//       setIsLoaded(true)
+//     });
+//   }, [dispatch]);
+//   return (
+//     <>
+//       <Navigation isLoaded={isLoaded} />
+//       {isLoaded && <Outlet />}
+//     </>
+//   );
+// }
+
+
 
 export const router = createBrowserRouter([
   {
