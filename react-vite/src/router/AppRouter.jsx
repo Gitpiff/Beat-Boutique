@@ -3,27 +3,11 @@ import LoginFormPage from "../components/LoginFormPage";
 import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import LandingPage from "../components/LandingPage";
-import ProductDetails from "../components/ProductDetails";
-import CreateProduct from "../components/CreateProduct";
-import CreateReview from "../components/CreateReview";
-import ManageProducts from "../components/ManageProducts";
+// import ProductDetails from "../components/ProductDetails";
+// import CreateProduct from "../components/CreateProduct";
+// import CreateReview from "../components/CreateReview";
+// import UserProducts from "../components/UserProducts";
 
-function Layout() {
-  const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => {
-      setIsLoaded(true);
-    });
-  }, [dispatch]);
-  return (
-    <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && <Outlet />}
-    </>
-  );
-}
 
 export const router = createBrowserRouter([
   {
@@ -40,31 +24,31 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
-      },
-      {
-        path: "products/:id",
-        element: <ProductDetails />,
-      },
-      {
-        path: "products/current",
-        element: <ManageProducts />,
-      },
-      {
-        path: "products/new",
-        element: <CreateProduct />,
-      },
-      {
-        path: "review/new",
-        element: <CreateReview />,
-      },
-      {
-        path: "products/:id/edit",
-        element: <UpdateProduct />,
-      },
-      {
-        path: "reviews/:id/edit",
-        element: <UpdateReview />,
-      },
+      }
+      // {
+      //   path: "products/:id",
+      //   element: <ProductDetails />,
+      // },
+      // {
+      //   path: "products/current",
+      //   element: <UserProducts />,
+      // },
+      // {
+      //   path: "products/new",
+      //   element: <CreateProduct />,
+      // },
+      // {
+      //   path: "review/new",
+      //   element: <CreateReview />,
+      // },
+      // {
+      //   path: "products/:id/edit",
+      //   element: <UpdateProduct />,
+      // },
+      // {
+      //   path: "reviews/:id/edit",
+      //   element: <UpdateReview />,
+      // },
     ],
   },
 ]);
