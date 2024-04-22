@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from ..forms.products import Products
 from ..forms.product_image import ProductImageForm
 from ..models import db, Product, ProductImage
-from ..aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
+# from ..aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
 
 product_routes = Blueprint("products", __name__)

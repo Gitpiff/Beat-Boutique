@@ -52,7 +52,7 @@ export const getProductById = (id) => async (dispatch) => {
 };
 
 export const createNewProduct = (product) => async (dispatch) => {
-  const { name, description, price, inventory } = product;
+  const { name, description, price, inventory, image_url } = product;
 
   const response = await fetch('/api/products/', {
     method: 'POST',
