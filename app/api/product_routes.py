@@ -1,9 +1,10 @@
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from ..forms.products import Products
 from ..forms.product_image import ProductImageForm
-from ..models import db, Product, ProductImage
+from ..models import db, Product, ProductImage, Review
 from ..aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
 
@@ -17,7 +18,21 @@ def index():
     """
     get_all_products = Product.query.options(joinedload("images")).all()
 
-    products_dict = [product.to_dict() for product in get_all_products]
+    products_dict = []
+    for product in get_all_products:
+        avg_rating = (
+            db.session.query(func.avg(Review.rating))
+            .filter_by(product_id=product.id)
+            .scalar()
+        )
+        product_dict = product.to_dict()
+        product_dict.pop("reviews", None)
+        if avg_rating:
+            product_dict["avgRating"] = round(avg_rating, 2)
+        else:
+            product_dict["avgRating"] = 0
+
+        products_dict.append(product_dict)
 
     return jsonify(products_dict)
 
@@ -132,6 +147,7 @@ def delete_product(product_id):
 #         return new_image.to_dict()
 
 #     return form.errors, 401
+
 
 @product_routes.route("/images/<int:product_id>", methods=["POST"])
 @login_required
