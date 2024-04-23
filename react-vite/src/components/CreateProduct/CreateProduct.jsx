@@ -44,7 +44,35 @@ const handleSubmit = async (e) => {
 
 return (
     <form onSubmit={handleSubmit}>
-        
+        <div>
+            <label>Name</label>
+            <input
+            type="text"
+            name="name"
+            value={prodData.name}
+            onChange={handleChange}
+            required
+            />
+        </div>
+        <div>
+            <label>Description</label>
+            <textarea
+            name="description"
+            value={prodData.description}
+            onChange={handleChange}
+            />
+        </div>
+        <div>
+            <label>Inventory</label>
+            <input
+            type="number" //HELP
+            name="inventory"
+            value={prodData.inventory}
+            onChange={handleChange}
+            required
+            />
+        </div>
+        <button type="submit">Create Product</button>
 
     </form>
 )
