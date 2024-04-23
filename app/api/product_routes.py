@@ -51,6 +51,7 @@ def create_new_product():
             name=form.data["name"],
             owner_id=current_user.id,
             description=form.data["description"],
+            type=form.data["type"],
             price=form.data["price"],
             inventory=form.data["inventory"],
         )
