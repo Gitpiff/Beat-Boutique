@@ -76,3 +76,5 @@ return (
 
     </form>
 )
+
+export default CreateProduct;
