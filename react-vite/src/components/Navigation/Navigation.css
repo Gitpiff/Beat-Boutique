@@ -1,3 +1,71 @@
+nav {
+  background-color: #70d6ff;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 20px;
+  color: #000000;
+}
+
+nav a {
+  color: #000000;
+}
+
+.search-bar {
+  height: 30px;
+  width: 260px;
+  border-radius: 3px;
+  background-color: #efefef;
+  color: rgba(22, 17, 19, 0.7);
+  outline: none;
+  font-size: 14px;
+  line-height: 16px;
+  border: 1px solid #f3f3f3;
+  margin-left: 20px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 150px;
+}
+
+.user-profile {
+  cursor: pointer;
+  background-color: #efefef;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.user-info {
+  margin: 5px 0px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid;
+  line-height: 1.8;
+}
+
 .profile-dropdown {
   position: absolute;
+  z-index: 100;
+  margin-top: 10px;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  width: 250px;
+  right: 415px;
+  border: 2px solid #000000;
+}
+
+.logout-btn {
+  border-radius: 5px;
+  padding: 6px 0px;
+  margin: 3px 0px;
+  border: none;
+  cursor: pointer;
+  width: 75px;
+  background-color: #bc4749;
+  color: #ffffff;
 }

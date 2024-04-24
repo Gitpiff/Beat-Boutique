@@ -1,8 +1,42 @@
 .imageContainer {
     display: flex;
-    height: 500px;
+    height: 600px;
     width: 100%;
-    background-color: #70d6ff;
+    margin: 15px 0px;
+    /* background-color: #70d6ff; */
+    /* opacity: 0.6; */
+}
+
+.imgContainer {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        'image1 image1 image2'
+        'image1 image1 image3'
+        'image1 image1 image4';
+    justify-items: stretch;
+}
+
+
+.image1 {
+    grid-area: image1;
+    height: 600px;
+}
+
+.image2 {
+    grid-area: image2;
+    height: 200px;
+}
+
+.image3 {
+    grid-area: image3;
+    height: 200px;
+}
+
+.image4 {
+    grid-area: image4;
+    height: 200px;
 }
 
 .productList {
