@@ -9,7 +9,7 @@ import LandingPage from "../components/LandingPage";
 // import UserProducts from "../components/UserProducts";
 
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
