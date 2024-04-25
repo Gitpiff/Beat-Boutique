@@ -3,7 +3,7 @@ import LoginFormPage from "../components/LoginFormPage";
 import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import LandingPage from "../components/LandingPage";
-// import ProductDetails from "../components/ProductDetails";
+import ProductDetails from "../components/ProductDetails";
 // import CreateProduct from "../components/CreateProduct";
 // import CreateReview from "../components/CreateReview";
 // import UserProducts from "../components/UserProducts";
@@ -24,11 +24,11 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
-      }
-      // {
-      //   path: "products/:id",
-      //   element: <ProductDetails />,
-      // },
+      },
+      {
+        path: "products/:productId",
+        element: <ProductDetails />,
+      },
       // {
       //   path: "products/current",
       //   element: <UserProducts />,
