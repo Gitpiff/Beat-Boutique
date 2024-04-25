@@ -1,10 +1,8 @@
 .imageContainer {
     display: flex;
-    height: 600px;
+    height: 550px;
     width: 100%;
-    margin: 15px 0px;
-    /* background-color: #70d6ff; */
-    /* opacity: 0.6; */
+    background-color: #252422;
 }
 
 .imgContainer {
@@ -16,27 +14,28 @@
         'image1 image1 image3'
         'image1 image1 image4';
     justify-items: stretch;
+    opacity: .7;
 }
 
 
 .image1 {
     grid-area: image1;
-    height: 600px;
+    height: 550px;
 }
 
 .image2 {
     grid-area: image2;
-    height: 200px;
+    height: 183.3px
 }
 
 .image3 {
     grid-area: image3;
-    height: 200px;
+    height: 183.3px
 }
 
 .image4 {
     grid-area: image4;
-    height: 200px;
+    height: 183.3px
 }
 
 .productList {
