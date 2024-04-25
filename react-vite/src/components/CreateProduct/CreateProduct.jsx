@@ -93,8 +93,8 @@ function CreateProduct() {
         <label>Image URL</label>
         <input
           type="text"
-          name="imageUrl"
-          value={prodData.imageUrl}
+          name="image_url"
+          value={prodData.image_url}
           onChange={handleChange}
           required
         />
