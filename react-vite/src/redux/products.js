@@ -1,5 +1,6 @@
 const GET_PRODUCTS = 'products/getProducts';
 const GET_PRODUCTS_BY_ID = 'products/getProductById';
+const GET_USER_PRODUCTS = 'products/getUserProducts';
 const CREATE_NEW_PRODUCT = 'products/createNewProduct';
 const UPDATE_PRODUCTS_BY_ID = 'products/updateProductsById';
 const DELETE_PRODUCT_BY_ID = 'products/deleteProductById';
@@ -13,6 +14,11 @@ const getProducts = (products) => ({
 const getProductsById = (product) => ({
   type: GET_PRODUCTS_BY_ID,
   payload: product,
+});
+
+const getUserProducts = (products) => ({
+  type: GET_USER_PRODUCTS,
+  payload: products,
 });
 
 const createNewProducts = (product) => ({
@@ -48,6 +54,15 @@ export const getProductById = (id) => async (dispatch) => {
     if (data.errors) return;
 
     dispatch(getProductsById(data));
+  }
+};
+
+export const fetchUserProducts = () => async (dispatch) => {
+  const response = await fetch('/api/products/current');
+  if (response.ok) {
+    const data = await response.json();
+    if (data.errors) return;
+    dispatch(getUserProducts(data));
   }
 };
 
@@ -121,7 +136,10 @@ export const deleteProductById = (id) => async (dispatch) => {
 };
 
 // Reducer
-const initialState = { products: null };
+const initialState = {
+  products: null,
+  userProducts: [],
+};
 
 function productReducer(state = initialState, action) {
   switch (action.type) {
@@ -134,6 +152,18 @@ function productReducer(state = initialState, action) {
 
       return products;
     }
+
+    case GET_PRODUCTS: {
+      const products = {};
+      action.payload.forEach((product) => {
+        products[product.id] = product;
+      });
+      return {
+        ...state,
+        products,
+      };
+    }
+
     case GET_PRODUCTS_BY_ID: {
       return { [action.payload.id]: action.payload };
     }
