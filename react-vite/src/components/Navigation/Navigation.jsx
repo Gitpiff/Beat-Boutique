@@ -9,8 +9,6 @@ import './Navigation.css';
 function Navigation() {
   const user = useSelector((state) => state.session.user);
 
-  const closeMenu = () => setShowMenu(false);
-
   return (
     <nav>
       <div className="logo">
@@ -27,14 +25,9 @@ function Navigation() {
             <div className="menu">
               <OpenModalMenuItem
                 modalComponent={<SignupFormModal />}
-                onItemClick={closeMenu}
                 itemText="Sign Up"
               />
-              <OpenModalMenuItem
-                modalComponent={<LoginFormModal />}
-                onItemClick={closeMenu}
-                itemText="Log in"
-              />
+              <OpenModalMenuItem modalComponent={<LoginFormModal />} itemText="Log in" />
             </div>
           </>
         )}
