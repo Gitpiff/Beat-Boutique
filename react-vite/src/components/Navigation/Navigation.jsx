@@ -1,10 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import ProfileButton from './ProfileButton';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
+import OpenModalMenuItem from './OpenModalMenuItem';
 import { useSelector } from 'react-redux';
 import './Navigation.css';
 
 function Navigation() {
   const user = useSelector((state) => state.session.user);
+
+  const closeMenu = () => setShowMenu(false);
 
   return (
     <nav>
@@ -20,12 +25,16 @@ function Navigation() {
         ) : (
           <>
             <div className="menu">
-              <li>
-                <NavLink to="/signup">Sign Up</NavLink>
-              </li>
-              <li>
-                <NavLink to="/login">Log In</NavLink>
-              </li>
+              <OpenModalMenuItem
+                modalComponent={<SignupFormModal />}
+                onItemClick={closeMenu}
+                itemText="Sign Up"
+              />
+              <OpenModalMenuItem
+                modalComponent={<LoginFormModal />}
+                onItemClick={closeMenu}
+                itemText="Log in"
+              />
             </div>
           </>
         )}
