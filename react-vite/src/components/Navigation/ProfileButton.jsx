@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { thunkLogout } from '../../redux/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -51,12 +53,18 @@ function ProfileButton() {
               <li className="user-info">
                 Hello, {user.first_name} {user.last_name}
               </li>
+              <li>
+                <NavLink to={'/user/account'}>My Account</NavLink>
+              </li>
               <li>{user.username}</li>
               <li>{user.email}</li>
-              <li>
+              <li className="shopping">
                 <button className="logout-btn" onClick={logout}>
                   Sign Out
                 </button>
+                <NavLink to={'/checkout'}>
+                  <AiOutlineShoppingCart size={30} cursor={'pointer'} color={'black'} />
+                </NavLink>
               </li>
             </>
           ) : (
