@@ -52,7 +52,7 @@ export const getProductById = (id) => async (dispatch) => {
 };
 
 export const createNewProduct = (product) => async (dispatch) => {
-  const { name, description, price, inventory, image_url } = product;
+  const { name, description, price, inventory, type, image_url } = product;
 
   const response = await fetch('/api/products/', {
     method: 'POST',
@@ -63,6 +63,7 @@ export const createNewProduct = (product) => async (dispatch) => {
       price,
       inventory,
       image_url,
+      type
     }),
   });
 
