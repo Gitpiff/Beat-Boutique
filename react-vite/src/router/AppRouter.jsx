@@ -14,10 +14,10 @@ export const router = createBrowserRouter([
         path: '/',
         element: <LandingPage />,
       },
-      {
-        path: 'products/:id',
-        element: <ProductDetails />,
-      },
+      // {
+      //   path: 'products/:id',
+      //   element: <ProductDetails />,
+      // },
       // {
       //   path: "products/current",
       //   element: <UserProducts />,
@@ -38,10 +38,10 @@ export const router = createBrowserRouter([
       //   path: "reviews/:id/edit",
       //   element: <UpdateReview />,
       // },
-      {
-        path: 'checkout',
-        element: <Checkout />,
-      },
+      // {
+      //   path: 'checkout',
+      //   element: <Checkout />,
+      // },
     ],
   },
 ]);
