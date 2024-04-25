@@ -1,34 +1,23 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginFormPage from "../components/LoginFormPage";
-import SignupFormPage from "../components/SignupFormPage";
-import Layout from "./Layout";
-import LandingPage from "../components/LandingPage";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from './Layout';
+import LandingPage from '../components/LandingPage';
 // import ProductDetails from "../components/ProductDetails";
 // import CreateProduct from "../components/CreateProduct";
 // import CreateReview from "../components/CreateReview";
 // import UserProducts from "../components/UserProducts";
-
 
 export const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <LandingPage />,
       },
       {
-        path: "login",
-        element: <LoginFormPage />,
+        path: 'products/:id',
+        element: <ProductDetails />,
       },
-      {
-        path: "signup",
-        element: <SignupFormPage />,
-      }
-      // {
-      //   path: "products/:id",
-      //   element: <ProductDetails />,
-      // },
       // {
       //   path: "products/current",
       //   element: <UserProducts />,
@@ -49,6 +38,10 @@ export const router = createBrowserRouter([
       //   path: "reviews/:id/edit",
       //   element: <UpdateReview />,
       // },
+      {
+        path: 'checkout',
+        element: <Checkout />,
+      },
     ],
   },
 ]);
