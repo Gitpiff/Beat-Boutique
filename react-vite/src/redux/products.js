@@ -152,18 +152,12 @@ function productReducer(state = initialState, action) {
 
       return products;
     }
-
-    case GET_PRODUCTS: {
-      const products = {};
-      action.payload.forEach((product) => {
-        products[product.id] = product;
-      });
+    case GET_USER_PRODUCTS: {
       return {
         ...state,
-        products,
+        userProducts: action.payload,
       };
     }
-
     case GET_PRODUCTS_BY_ID: {
       return { [action.payload.id]: action.payload };
     }
