@@ -91,7 +91,11 @@ const initialState = { reviews: null };
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
     case GET_REVIEWS_BY_ID: {
-      return { [action.payload.id]: action.payload };
+      const reviews = {};
+      action.payload.forEach((review) => {
+        reviews[review.id] = action.payload;
+      });
+      return reviews;
     }
     case CREATE_NEW_REVIEW: {
       return { ...state, [action.payload.id]: action.payload };
