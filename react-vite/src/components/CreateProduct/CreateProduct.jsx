@@ -10,6 +10,7 @@ function CreateProduct() {
     price: '',
     inventory: '',
     type: '',
+    image_url: ''
   });
 
   const handleChange = (e) => {
@@ -30,6 +31,7 @@ function CreateProduct() {
         price: '',
         inventory: '',
         type: '',
+        image_url
       });
     } catch (error) {
       console.error('Error creating product: ', error);
@@ -83,6 +85,16 @@ function CreateProduct() {
           type="number"
           name="price"
           value={prodData.price}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Image URL</label>
+        <input
+          type="text"
+          name="imageUrl"
+          value={prodData.imageUrl}
           onChange={handleChange}
           required
         />
