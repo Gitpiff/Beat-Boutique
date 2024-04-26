@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchUserProducts, deleteProductById } from '../../redux/products';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchUserProducts, deleteProductById } from "../../redux/products";
+import './UserProducts.css';
 
 const UserProducts = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,9 @@ const UserProducts = () => {
         {userProducts.map((product) => (
           <div key={product.id} className="product-tile">
             <Link to={`/products/${product.id}`}>
-              <img src={product.imageUrl} alt={product.name} />
+              {product.images && product.images.length > 0 && (
+                <img src={product.images[0].image_url} alt={product.name} />
+              )}
               <div className="product-details">
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
