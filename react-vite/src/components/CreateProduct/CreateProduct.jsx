@@ -28,7 +28,6 @@ function CreateProduct() {
     e.preventDefault();
     if (sessionUser) {
       try {
-        console.log("before dispatch   ", prodData)
         await dispatch(createNewProduct(prodData));
         setProdData({
           name: "",

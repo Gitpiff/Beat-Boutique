@@ -53,7 +53,6 @@ export const getProductById = (id) => async (dispatch) => {
 
 export const createNewProduct = (prodData) => async (dispatch) => {
   try {
-    console.log("invoke   ", prodData)
     let { name, description, price, inventory, type, image_url } = prodData;
 
     price = +price
