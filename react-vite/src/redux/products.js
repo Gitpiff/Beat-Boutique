@@ -66,34 +66,52 @@ export const fetchUserProducts = () => async (dispatch) => {
   }
 };
 
-export const createNewProduct = (product) => async (dispatch) => {
-  const { name, description, price, inventory, image_url } = product;
+export const createNewProduct = (prodData) => async (dispatch) => {
+  try {
+    let { name, description, price, inventory, type, image } = prodData;
+    price = +price;
+    inventory = +inventory;
 
-  const response = await fetch('/api/products/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name,
-      description,
-      price,
-      inventory,
-      image_url,
-    }),
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-
-    if (data.errors) return;
-
-    dispatch(createNewProducts(data));
-
-    await fetch(`/api/products/images/${data.id}`, {
+    const response = await fetch('/api/products/', {
       method: 'POST',
-      body: JSON.stringify({
-        image_url,
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, description, price, inventory, type }),
     });
+
+    if (response.ok) {
+      const newProduct = await response.json();
+      if (newProduct.errors) {
+        console.error('Error creating product:', newProduct.errors);
+        return null;
+      }
+
+      dispatch(createNewProducts(newProduct));
+
+      if (image) {
+        const formData = new FormData();
+        formData.append('image', image);
+
+        const imageResponse = await fetch(`/api/products/images/${newProduct.id}`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!imageResponse.ok) {
+          const errorData = await imageResponse.json();
+          console.error('Error adding product image:', errorData);
+        }
+      }
+
+      return newProduct;
+    } else {
+      const errorData = await response.text();
+      throw new Error(`Server responded with ${response.status}: ${errorData}`);
+    }
+  } catch (error) {
+    console.error('Error creating product:', error);
+    return null;
   }
 };
 
