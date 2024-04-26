@@ -6,7 +6,7 @@ from ..forms.products import Products
 from ..forms.product_image import ProductImageForm
 from ..models import db, Product, ProductImage, Review
 from ..aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
-
+from sqlalchemy.orm import joinedload
 
 product_routes = Blueprint("products", __name__)
 
@@ -35,6 +35,18 @@ def index():
         products_dict.append(product_dict)
 
     return jsonify(products_dict)
+
+
+@product_routes.route("/current")
+@login_required
+def get_current_user_products():
+    """
+    Gets all products of the current user along with associated images
+    """
+    user_id = current_user.id
+    user_products = Product.query.options(joinedload(Product.images)).filter_by(owner_id=user_id).all()
+    return jsonify([product.to_dict() for product in user_products])
+
 
 
 @product_routes.route("/", methods=["POST"])

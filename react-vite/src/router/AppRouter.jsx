@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './Layout';
 import LandingPage from '../components/LandingPage';
-import LoginFormPage from '../components/LoginFormPage/LoginFormPage'
+import LoginFormPage from '../components/LoginFormPage'
 // import ProductDetails from "../components/ProductDetails";
-import CreateProduct from "../components/CreateProduct/CreateProduct";
+import CreateProduct from "../components/CreateProduct";
 // import CreateReview from "../components/CreateReview";
-// import UserProducts from "../components/UserProducts";
+import UserProducts from "../components/UserProducts";
 
 export const router = createBrowserRouter([
   {
