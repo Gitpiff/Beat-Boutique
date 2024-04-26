@@ -15,20 +15,42 @@ function CreateProduct() {
     type: "",
   });
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value)
     setProdData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (sessionUser) {
       try {
-        await dispatch(createNewProduct(prodData));
+        const newProductData = {
+          ...prodData,
+          price: +prodData.price,
+          inventory: +prodData.inventory,
+        };
+
+        const newProduct = await dispatch(createNewProduct(newProductData));
+
+        if (newProduct && selectedImage) {
+          const formData = new FormData();
+          formData.append("image", selectedImage);
+
+          await fetch(`/api/products/images/${newProduct.id}`, {
+            method: "POST",
+            body: formData,
+          });
+        }
+
         setProdData({
           name: "",
           description: "",
@@ -36,6 +58,9 @@ function CreateProduct() {
           inventory: "",
           type: "",
         });
+        setSelectedImage(null);
+        e.target.reset()
+
       } catch (error) {
         console.error("Error creating product: ", error);
       }
@@ -101,6 +126,10 @@ function CreateProduct() {
           onChange={handleChange}
           required
         />
+      </div>
+      <div>
+        <label>Image</label>
+        <input type="file" onChange={handleImageChange} />
       </div>
       <button type="submit">Create Product</button>
     </form>

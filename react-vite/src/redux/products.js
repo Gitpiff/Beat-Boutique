@@ -53,44 +53,50 @@ export const getProductById = (id) => async (dispatch) => {
 
 export const createNewProduct = (prodData) => async (dispatch) => {
   try {
-    let { name, description, price, inventory, type, image_url } = prodData;
+    let { name, description, price, inventory, type, image } = prodData;
+    price = +price;
+    inventory = +inventory;
 
-    price = +price
-    inventory = +inventory
-
-    console.log(typeof(price))
     const response = await fetch('/api/products/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ name, description, price, inventory, type }),
     });
 
     if (response.ok) {
-      const data = await response.json();
-      if (data.errors) {
-        console.error('Error creating product:', data.errors);
-        return;
+      const newProduct = await response.json();
+      if (newProduct.errors) {
+        console.error('Error creating product:', newProduct.errors);
+        return null;
       }
 
-      dispatch(createNewProducts(data));
+      dispatch(createNewProducts(newProduct));
 
-      if (image_url) {
-        await fetch(`/api/products/images/${data.id}`, {
+      if (image) {
+        const formData = new FormData();
+        formData.append('image', image);
+
+        const imageResponse = await fetch(`/api/products/images/${newProduct.id}`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ image_url }),
+          body: formData,
         });
+
+        if (!imageResponse.ok) {
+          const errorData = await imageResponse.json();
+          console.error('Error adding product image:', errorData);
+        }
       }
+
+      return newProduct;
     } else {
       const errorData = await response.text();
       throw new Error(`Server responded with ${response.status}: ${errorData}`);
     }
   } catch (error) {
     console.error('Error creating product:', error);
+    return null;
   }
 };
 
