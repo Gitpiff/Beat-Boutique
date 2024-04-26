@@ -51,35 +51,47 @@ export const getProductById = (id) => async (dispatch) => {
   }
 };
 
-export const createNewProduct = (product) => async (dispatch) => {
-  const { name, description, price, inventory, type, image_url } = product;
+export const createNewProduct = (prodData) => async (dispatch) => {
+  try {
+    console.log("invoke   ", prodData)
+    let { name, description, price, inventory, type, image_url } = prodData;
 
-  const response = await fetch('/api/products/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name,
-      description,
-      price,
-      inventory,
-      image_url,
-      type
-    }),
-  });
+    price = +price
+    inventory = +inventory
 
-  if (response.ok) {
-    const data = await response.json();
-
-    if (data.errors) return;
-
-    dispatch(createNewProducts(data));
-
-    await fetch(`/api/products/images/${data.id}`, {
+    console.log(typeof(price))
+    const response = await fetch('/api/products/', {
       method: 'POST',
-      body: JSON.stringify({
-        image_url,
-      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, description, price, inventory, type }),
     });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.errors) {
+        console.error('Error creating product:', data.errors);
+        return;
+      }
+
+      dispatch(createNewProducts(data));
+
+      if (image_url) {
+        await fetch(`/api/products/images/${data.id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ image_url }),
+        });
+      }
+    } else {
+      const errorData = await response.text();
+      throw new Error(`Server responded with ${response.status}: ${errorData}`);
+    }
+  } catch (error) {
+    console.error('Error creating product:', error);
   }
 };
 

@@ -1,19 +1,23 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createNewProduct } from '../../redux/products'
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewProduct } from "../../redux/products";
+import { Navigate } from "react-router-dom";
 
 function CreateProduct() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
+
   const [prodData, setProdData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    inventory: '',
-    type: '',
+    name: "",
+    description: "",
+    price: "",
+    inventory: "",
+    type: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value)
     setProdData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -22,19 +26,26 @@ function CreateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await dispatch(createNewProduct(prodData));
-      setProdData({
-        name: '',
-        description: '',
-        price: '',
-        inventory: '',
-        type: '',
-      });
-    } catch (error) {
-      console.error('Error creating product: ', error);
+    if (sessionUser) {
+      try {
+        console.log("before dispatch   ", prodData)
+        await dispatch(createNewProduct(prodData));
+        setProdData({
+          name: "",
+          description: "",
+          price: "",
+          inventory: "",
+          type: "",
+        });
+      } catch (error) {
+        console.error("Error creating product: ", error);
+      }
     }
   };
+
+  if (!sessionUser) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -58,13 +69,18 @@ function CreateProduct() {
       </div>
       <div>
         <label>Type</label>
-        <select name="type" value={prodData.type} onChange={handleChange} required>
+        <select
+          name="type"
+          value={prodData.type}
+          onChange={handleChange}
+          required
+        >
           <option value="">Select Type</option>
-          <option value="Musical Instruments">Musical Instruments</option>
-          <option value="Clothing">Clothing</option>
-          <option value="Tapes">Tapes</option>
-          <option value="CDs">CDs</option>
-          <option value="Pins">Pins</option>
+          <option value="MUSICAL_INSTRUMENTS">Musical Instruments</option>
+          <option value="CLOTHING">Clothing</option>
+          <option value="TAPES">Tapes</option>
+          <option value="CDS">CDs</option>
+          <option value="PINS">Pins</option>
         </select>
       </div>
       <div>
