@@ -1,5 +1,6 @@
 const GET_PRODUCTS = 'products/getProducts';
 const GET_PRODUCTS_BY_ID = 'products/getProductById';
+const GET_USER_PRODUCTS = 'products/getUserProducts';
 const CREATE_NEW_PRODUCT = 'products/createNewProduct';
 const UPDATE_PRODUCTS_BY_ID = 'products/updateProductsById';
 const DELETE_PRODUCT_BY_ID = 'products/deleteProductById';
@@ -15,14 +16,19 @@ const getProductsById = (product) => ({
   payload: product,
 });
 
+const getUserProducts = (products) => ({
+  type: GET_USER_PRODUCTS,
+  payload: products,
+});
+
 const createNewProducts = (product) => ({
   type: CREATE_NEW_PRODUCT,
   payload: product,
 });
 
-const updateProductsById = (id) => ({
+const updateProductsById = (product) => ({
   type: UPDATE_PRODUCTS_BY_ID,
-  payload: id,
+  payload: product,
 });
 
 const deleteProductsById = (id) => ({
@@ -48,6 +54,15 @@ export const getProductById = (id) => async (dispatch) => {
     if (data.errors) return;
 
     dispatch(getProductsById(data));
+  }
+};
+
+export const fetchUserProducts = () => async (dispatch) => {
+  const response = await fetch('/api/products/current');
+  if (response.ok) {
+    const data = await response.json();
+    if (data.errors) return;
+    dispatch(getUserProducts(data));
   }
 };
 
@@ -80,6 +95,9 @@ export const createNewProduct = (prodData) => async (dispatch) => {
 
         const imageResponse = await fetch(`/api/products/images/${newProduct.id}`, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: formData,
         });
 
@@ -101,13 +119,17 @@ export const createNewProduct = (prodData) => async (dispatch) => {
 };
 
 export const updateProductById = (id, product) => async (dispatch) => {
-  const { name, description, price, inventory } = product;
+  const { name, description, type, price, inventory } = product;
 
   const response = await fetch(`/api/products/${id}`, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
       name,
       description,
+      type,
       price,
       inventory,
     }),
@@ -117,9 +139,10 @@ export const updateProductById = (id, product) => async (dispatch) => {
 
     if (data.errors) return;
 
-    dispatch(updateProductsById(id));
+    dispatch(updateProductsById(data));
   }
 };
+
 
 export const deleteProductById = (id) => async (dispatch) => {
   const response = await fetch(`/api/products/${id}`, {
@@ -131,15 +154,14 @@ export const deleteProductById = (id) => async (dispatch) => {
     if (data.errors) return;
 
     dispatch(deleteProductsById(id));
-
-    await fetch(`/api/products/images/${id}`, {
-      method: 'DELETE',
-    });
   }
 };
 
 // Reducer
-const initialState = { products: null };
+const initialState = {
+  products: null,
+  userProducts: {},
+};
 
 function productReducer(state = initialState, action) {
   switch (action.type) {
@@ -152,6 +174,13 @@ function productReducer(state = initialState, action) {
 
       return products;
     }
+    case GET_USER_PRODUCTS: {
+        const newState = {userProducts: {}, ...state }
+        action.payload.forEach(product => {
+          newState.userProducts[product.id] = product
+        })
+        return newState
+    }
     case GET_PRODUCTS_BY_ID: {
       return { [action.payload.id]: action.payload };
     }
@@ -162,7 +191,8 @@ function productReducer(state = initialState, action) {
       return { ...state, [action.payload.id]: action.payload };
     }
     case DELETE_PRODUCT_BY_ID: {
-      const products = { ...state };
+      const products = { userProducts: {...state.userProducts}, ...state };
+      delete products.userProducts[action.payload];
       delete products[action.payload];
       return products;
     }

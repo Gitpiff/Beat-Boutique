@@ -7,7 +7,8 @@ import ProductDetails from "../components/ProductDetails";
 import ProductReviews from "../components/ProductReviews";
 // import CreateProduct from "../components/CreateProduct";
 // import CreateReview from "../components/CreateReview";
-// import UserProducts from "../components/UserProducts";
+import UserProducts from "../components/UserProducts";
+import EditProduct from "../components/EditProduct"
 import Checkout from '../components/Checkout';
 
 
@@ -35,10 +36,10 @@ export const router = createBrowserRouter([
         path: "reviews/:productId",
         element: <ProductReviews />
       },
-      // {
-      //   path: "products/current",
-      //   element: <UserProducts />,
-      // },
+      {
+        path: "products/current",
+        element: <UserProducts />,
+      },
       // {
       //   path: "products/new",
       //   element: <CreateProduct />,
@@ -47,10 +48,10 @@ export const router = createBrowserRouter([
       //   path: "review/new",
       //   element: <CreateReview />,
       // },
-      // {
-      //   path: "products/:id/edit",
-      //   element: <UpdateProduct />,
-      // },
+      {
+        path: "products/:id/edit",
+        element: <EditProduct />,
+      },
       // {
       //   path: "reviews/:id/edit",
       //   element: <UpdateReview />,

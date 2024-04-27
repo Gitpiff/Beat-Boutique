@@ -2,7 +2,6 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
 
 
-from sqlalchemy import func, Enum
 import enum
 
 
@@ -38,7 +37,7 @@ class Product(db.Model):
 
     user = db.relationship("User", back_populates="products")
     images = db.relationship("ProductImage", back_populates="product")
-    reviews = db.relationship("Review", back_populates="product")
+    reviews = db.relationship("Review", back_populates="product", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
