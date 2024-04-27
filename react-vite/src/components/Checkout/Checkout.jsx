@@ -5,11 +5,22 @@ import {
   restCartItems,
 } from '../../redux/shopping-cart';
 import styles from './Checkout.module.css';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
   const cartItems = Object.values(cart.cart || {});
   const dispatch = useDispatch();
+
+    // Get session user
+  const sessionUser = useSelector(state => state.session.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!sessionUser) navigate('/');
+  }, [sessionUser, navigate]);
 
   const totalPrice = (quantity, price) => {
     const total = quantity * price;

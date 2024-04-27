@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { getProductById } from "../../redux/products";
 import { getProductReview } from "../../redux/reviews";
 import ProductReviews from "../ProductReviews";
-//import OpenModalButton from "../OpenModalButton/OpenModalButton";
-//import CreateReviewModal from "../ProductReviews/CreateReviewModal";
 import ReviewButton from "../ProductReviews/ReviewButton";
+import { addProductToCart } from "../../redux/shopping-cart";
+
 
 const ProductDetails = () => {
 
@@ -49,7 +49,8 @@ const ProductDetails = () => {
                 <p>${product.price}</p>
                 <p>{product.description}</p>
                 <p>Quantity Left: {product.inventory}</p>
-                <button>Add to Cart</button>
+
+                {sessionUser && <button onClick={() => dispatch(addProductToCart(product))}>Add to Cart</button>}
 
                 <div>
                     {sessionUser && <ReviewButton productId={productId}  userId={sessionUser?.id}/>}
