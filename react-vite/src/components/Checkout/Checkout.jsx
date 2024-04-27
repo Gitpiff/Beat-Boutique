@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { increaseQuantity, decreaseQuantity } from '../../redux/shopping-cart';
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  restCartItems,
+} from '../../redux/shopping-cart';
 import styles from './Checkout.module.css';
 
 const Checkout = () => {
@@ -9,7 +13,12 @@ const Checkout = () => {
 
   const totalPrice = (quantity, price) => {
     const total = quantity * price;
-    return total;
+    return total.toFixed(2);
+  };
+
+  const checkout = () => {
+    dispatch(restCartItems());
+    alert('Order Set!, Shipping soon');
   };
 
   if (!cartItems.length) return <h1>No items in cart</h1>;
@@ -27,37 +36,51 @@ const Checkout = () => {
                   alt=""
                   style={{ height: '200px', width: '200px' }}
                 />
-                <h4>{item.name}</h4>
+                <h2>{item.name}</h2>
               </div>
               <div className={styles.itemDetails}>
                 <div>
                   <h2>Item Price</h2>
-                  <p>{item.price}</p>
+                  <p>${item.price.toFixed(2)}</p>
                 </div>
                 <div>
                   <h2>Quantity</h2>
                   <p>{item.quantity}</p>
+                  <button
+                    className="btn"
+                    onClick={() => dispatch(decreaseQuantity(item.id))}
+                  >
+                    -
+                  </button>
+                  <button
+                    className="btn"
+                    onClick={() => dispatch(increaseQuantity(item.id))}
+                  >
+                    +
+                  </button>
                 </div>
                 <div>
                   <h2>Total Price</h2>
-                  <p>{totalPrice(item.quantity, item.price)}</p>
+                  <p>${totalPrice(item.quantity, item.price)}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div>
-          <h3>Order Summary</h3>
-          <div>
+        <div className={styles.totalPrice}>
+          <h2>Order Summary</h2>
+          <div className={styles.orderSummary}>
             <p>Subtotal</p>
-            <p>${cart.totalPrice}</p>
+            <p>${cart.totalPrice.toFixed(2)}</p>
           </div>
-          <div>
+          <div className={styles.orderSummary}>
             <p>Shipping</p>
             <p>FREE</p>
           </div>
-          <button className="btn">Checkout</button>
+          <button className="btn" onClick={() => checkout()}>
+            Checkout
+          </button>
         </div>
       </div>
     </>
