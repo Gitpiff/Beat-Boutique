@@ -55,7 +55,7 @@ function ProfileButton() {
                 Hello, {user.first_name} {user.last_name}
               </li>
               <li>
-                <NavLink to={'/user/current'}>My Account</NavLink>
+                <NavLink to={'/products/current'}>My Account</NavLink>
               </li>
               <li>{user.username}</li>
               <li>{user.email}</li>

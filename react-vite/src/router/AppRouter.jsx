@@ -5,8 +5,7 @@ import Layout from "./Layout";
 import LandingPage from "../components/LandingPage";
 import ProductDetails from "../components/ProductDetails";
 import ProductReviews from "../components/ProductReviews";
-// import CreateProduct from "../components/CreateProduct";
-// import CreateReview from "../components/CreateReview";
+import CreateProduct from "../components/CreateProduct";
 import UserProducts from "../components/UserProducts";
 import EditProduct from "../components/EditProduct"
 import Checkout from '../components/Checkout';
@@ -21,14 +20,6 @@ export const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: '/login',
-        element: <LoginFormPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupFormPage />,
-      },
-      {
         path: "products/:productId",
         element: <ProductDetails />,
       },
@@ -40,22 +31,14 @@ export const router = createBrowserRouter([
         path: "products/current",
         element: <UserProducts />,
       },
-      // {
-      //   path: "products/new",
-      //   element: <CreateProduct />,
-      // },
-      // {
-      //   path: "review/new",
-      //   element: <CreateReview />,
-      // },
+      {
+        path: "products/new",
+        element: <CreateProduct />,
+      },
       {
         path: "products/:id/edit",
         element: <EditProduct />,
       },
-      // {
-      //   path: "reviews/:id/edit",
-      //   element: <UpdateReview />,
-      // },
       {
         path: '/checkout',
         element: <Checkout />,
