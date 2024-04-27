@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import { getProductById } from "../../redux/products";
 import { getProductReview } from "../../redux/reviews";
 import ProductReviews from "../ProductReviews";
+//import OpenModalButton from "../OpenModalButton/OpenModalButton";
+//import CreateReviewModal from "../ProductReviews/CreateReviewModal";
+import ReviewButton from "../ProductReviews/ReviewButton";
 
 const ProductDetails = () => {
 
@@ -17,11 +20,12 @@ const ProductDetails = () => {
     const product = useSelector(state => state.products ? state.products[productId] : null);
     // console.log(`Product : ${product}`)
     // Get session user
-    //const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session.user);
 
     // Get reviews
-    const reviews = Object.values(useSelector(state => state.reviews));
-    // console.log(`Reviews : ${reviews}`)
+    const reviews = Object.values(useSelector((state) => state.reviews));
+    const reviewsLength = reviews.length;
+    //console.log(`Reviews : ${reviews}`)
     // Get selected product
     useEffect(() => {
         dispatch(getProductById(productId))
@@ -36,7 +40,7 @@ const ProductDetails = () => {
     return ( 
         <section>
             <div>
-                <div>
+                <div style={{ display: 'flex', justifyContent: 'center'}}>
                     {/* Conditional rendering of images if they exist */}
                     {product && product.images && product.images.map((image) => (
                         <img style={{width: '400px', height: '500px'}} key={image.id} src={image.image_url} alt={`Product image ${product.name}`} />
@@ -46,40 +50,16 @@ const ProductDetails = () => {
                 <p>${product.price}</p>
                 <p>{product.description}</p>
                 <p>Quantity Left: {product.inventory}</p>
-                <div className='review-preview'>
-                    <p>
-                        <i className='fas fa-star'></i>
-                        <span>&#9733; {product.avgRating !== "undefined" ? `${parseFloat(product.avgRating).toFixed(2)}` : "New"}</span>
-                        {console.log(product.avgRating)}
-                        {product.numReviews !== 0 && (
-                            <span>
-                                · {product.reviews && product.reviews.length === 1 ? '1 review' : `${product.reviews.length} reviews`}
-                            </span>
-                        )}
-                    </p>
-                </div>
-                {/* {(sessionUser && reviews.length === 0 && sessionUser.id !== product.owner_id) && 
-                    <>
-                        <p>Be The first to post a Review!!</p>
-                    </>
-                }
-                {(sessionUser && reviews.length === 1 && sessionUser.id !== product.owner_id) &&
-                    <>
-                        <p>1 Review</p>
-                    </>
-                }
-                {sessionUser && product.reviews.length && product.reviews.length > 1 && sessionUser.id !== product.owner_id && 
-                    <>
-                        <span>&#9733; {product.reviews.length} Reviews</span>
-                    </>
-                } */}
-                <button className="btn">Add To Cart</button>
-
                 <div>
-                    <h1>Reviews: </h1>
-                    {product.reviews.length >= 1 && <ProductReviews productId={productId} product={product} />
-                    }
+                    <ReviewButton productId={productId}  userId={sessionUser.id}/>
+                    <button>Add to Cart</button>
+
                 </div>
+
+                    <div>
+                        {reviewsLength >= 1 && <ProductReviews productId={productId} product={product} />
+                        }
+                    </div>
                 
               </div>
         </section>

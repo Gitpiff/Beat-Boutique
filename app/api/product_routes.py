@@ -4,13 +4,8 @@ from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from ..forms.products import Products
 from ..forms.product_image import ProductImageForm
-<<<<<<< HEAD
 from ..models import db, Product, ProductImage, Review
 from ..aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
-=======
-from ..models import db, Product, ProductImage
-# from ..aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
->>>>>>> ff7d478d24f5411bbf9a50a4a9251a0bc9c41eb5
 
 
 product_routes = Blueprint("products", __name__)
@@ -22,7 +17,6 @@ def index():
     Gets all products
     """
     get_all_products = Product.query.options(joinedload("images")).all()
-
     products_dict = []
     for product in get_all_products:
         avg_rating = (
