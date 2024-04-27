@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: content-box;
+}
+
+body {
+  display: block;
+}
+
+.star {
+  font-size: 30px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: gray; 
+}
+
+.star.yellow {
+  color: blue; 
+}
+
+form>* {
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  justify-content: space-evenly;
+}

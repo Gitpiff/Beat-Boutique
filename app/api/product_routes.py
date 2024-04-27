@@ -17,7 +17,6 @@ def index():
     Gets all products
     """
     get_all_products = Product.query.options(joinedload("images")).all()
-
     products_dict = []
     for product in get_all_products:
         avg_rating = (

@@ -174,11 +174,11 @@ thead {
 
 /* ---------Form Styling------------ */
 
-form>* {
+/* form>* {
   display: flex;
   flex-direction: column;
   margin: 20px 0;
-}
+} */
 
 .go-to-report-form {
   display: flex;

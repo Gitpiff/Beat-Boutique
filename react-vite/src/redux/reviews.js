@@ -14,9 +14,9 @@ const createNewReviews = (review) => ({
   payload: review,
 });
 
-const updateProductReviews = (id) => ({
+const updateProductReviews = (review) => ({
   type: UPDATE_PRODUCT_REVIEW,
-  payload: id,
+  payload: review,
 });
 
 const deleteProductReviews = (id) => ({
@@ -37,7 +37,7 @@ export const getProductReview = (id) => async (dispatch) => {
 
 export const createNewReview = (id, reviews) => async (dispatch) => {
   const { rating, review } = reviews;
-  const response = await fetch(`api/reviews/${id}`, {
+  const response = await fetch(`/api/reviews/${id}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -55,8 +55,9 @@ export const createNewReview = (id, reviews) => async (dispatch) => {
 
 export const updateProductReview = (id, reviews) => async (dispatch) => {
   const { rating, review } = reviews;
-  const response = await fetch(`api/reviews/${id}`, {
+  const response = await fetch(`/api/reviews/${id}`, {
     method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       rating,
       review,
@@ -68,7 +69,7 @@ export const updateProductReview = (id, reviews) => async (dispatch) => {
 
     if (data.errors) return;
 
-    dispatch(updateProductReviews(id));
+    dispatch(updateProductReviews(data));
   }
 };
 
@@ -93,7 +94,7 @@ function reviewReducer(state = initialState, action) {
     case GET_REVIEWS_BY_ID: {
       const reviews = {};
       action.payload.forEach((review) => {
-        reviews[review.id] = action.payload;
+        reviews[review.id] = review;
       });
       return reviews;
     }

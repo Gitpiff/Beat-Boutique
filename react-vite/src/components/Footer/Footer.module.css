@@ -6,6 +6,8 @@
     padding: 20px 0px;
     flex-direction: column;
     gap: 5px;
+    position: absolute;
+    bottom: 0;
 }
 
 .displayInfo {

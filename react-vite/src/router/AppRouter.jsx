@@ -1,9 +1,11 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './Layout';
-import LandingPage from '../components/LandingPage';
-import LoginFormPage from '../components/LoginFormPage/LoginFormPage'
-// import ProductDetails from "../components/ProductDetails";
-import CreateProduct from "../components/CreateProduct/CreateProduct";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginFormPage from "../components/LoginFormPage";
+import SignupFormPage from "../components/SignupFormPage";
+import Layout from "./Layout";
+import LandingPage from "../components/LandingPage";
+import ProductDetails from "../components/ProductDetails";
+import ProductReviews from "../components/ProductReviews";
+// import CreateProduct from "../components/CreateProduct";
 // import CreateReview from "../components/CreateReview";
 // import UserProducts from "../components/UserProducts";
 
@@ -20,10 +22,18 @@ export const router = createBrowserRouter([
         path: '/login',
         element: <LoginFormPage />,
       },
-      // {
-      //   path: 'products/:id',
-      //   element: <ProductDetails />,
-      // },
+      {
+        path: "signup",
+        element: <SignupFormPage />,
+      },
+      {
+        path: "products/:productId",
+        element: <ProductDetails />,
+      },
+      {
+        path: "reviews/:productId",
+        element: <ProductReviews />
+      }
       // {
       //   path: "products/current",
       //   element: <UserProducts />,
