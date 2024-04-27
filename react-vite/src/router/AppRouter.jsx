@@ -7,8 +7,9 @@ import CreateProduct from "../components/CreateProduct/CreateProduct";
 // import CreateReview from "../components/CreateReview";
 // import UserProducts from "../components/UserProducts";
 
+
 export const router = createBrowserRouter([
-  {
+
     element: <Layout />,
     children: [
       {
