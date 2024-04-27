@@ -168,7 +168,6 @@ def add_new_image(product_id):
     if form.validate_on_submit():
         image = form.data["image"]
         image.filename = get_unique_filename(image.filename)
-        print(image.filename)
         upload = upload_file_to_s3(image)
 
         if "url" not in upload:

@@ -3,7 +3,6 @@ import OpenModalButton from "./OpenModalButton";
 
 const DeleteReviewButton = ({review}) => {
 
-    console.log(review)
     return (
         <OpenModalButton
             buttonText="Delete"

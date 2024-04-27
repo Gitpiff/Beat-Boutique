@@ -4,19 +4,18 @@ import { useParams } from "react-router-dom";
 import { getProductReview } from "../../redux/reviews";
 import DeleteReviewButton from "./DeleteReviewButton";
 import EditReviewButton from "./EditReviewButton";
-//import CreateReviewButton from "./CreateReviewButton";
 
 const ProductReviews = () => {
     const dispatch = useDispatch();
 
     // Get Product Id
     const { productId } = useParams();
+
    // Get session user
    const sessionUser = useSelector(state => state.session.user);
     
      // Get reviews
      const values = useSelector((state) => state.reviews);
-     console.log(values)
      const reviews = Object.values(values);
     
      

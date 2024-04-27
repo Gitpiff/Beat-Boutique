@@ -62,9 +62,7 @@ def update_review(review_id):
     Edits a review
     """
     review = Review.query.get(review_id)
-    print(review)
     data = request.json
-    print(data)
     if not review:
        return jsonify({"error": "Review not found"}) 
 
@@ -74,7 +72,6 @@ def update_review(review_id):
     if data:
         review.rating = data.get("rating", review.rating)
         review.review = data.get("review", review.review)
-        print("Yoooooo", review.rating, review.review)
     
     db.session.commit()
 

@@ -5,7 +5,6 @@ import { useModal } from "../../context/Modal";
 
 export default function EditReviewModal({review}) {
     const dispatch = useDispatch();
-    console.log(review);
     const { closeModal } = useModal();
 
     const [stars, setStars] = useState(review.rating);

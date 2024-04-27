@@ -14,18 +14,17 @@ const ProductDetails = () => {
 
     // Get Product Id
     const { productId } = useParams();
-    // console.log(`Product Id: ${productId}`)
     
     // Get product from redux store
     const product = useSelector(state => state.products ? state.products[productId] : null);
-    // console.log(`Product : ${product}`)
+
     // Get session user
     const sessionUser = useSelector(state => state.session.user);
 
     // Get reviews
     const reviews = Object.values(useSelector((state) => state.reviews));
     const reviewsLength = reviews.length;
-    //console.log(`Reviews : ${reviews}`)
+   
     // Get selected product
     useEffect(() => {
         dispatch(getProductById(productId))
@@ -50,16 +49,15 @@ const ProductDetails = () => {
                 <p>${product.price}</p>
                 <p>{product.description}</p>
                 <p>Quantity Left: {product.inventory}</p>
-                <div>
-                    <ReviewButton productId={productId}  userId={sessionUser.id}/>
-                    <button>Add to Cart</button>
+                <button>Add to Cart</button>
 
+                <div>
+                    {sessionUser && <ReviewButton productId={productId}  userId={sessionUser?.id}/>}
                 </div>
 
-                    <div>
-                        {reviewsLength >= 1 && <ProductReviews productId={productId} product={product} />
-                        }
-                    </div>
+                <div>
+                    {reviewsLength >= 1 && <ProductReviews productId={productId} product={product}/>}
+                </div>
                 
               </div>
         </section>

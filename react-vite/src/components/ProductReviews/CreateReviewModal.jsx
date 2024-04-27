@@ -34,8 +34,6 @@ export default function CreateReviewModal() {
             rating: stars
         }
 
-        console.log(reviewPayload);
-
         return dispatch(createNewReview(productId, reviewPayload))
             .then(closeModal)
             .catch(async (res) => {
