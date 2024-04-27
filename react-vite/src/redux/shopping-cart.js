@@ -1,6 +1,7 @@
 const ADD_PRODUCT_TO_CART = 'cart/addProductToCart';
 const INCREASE_QUANTITY = 'cart/increaseQuantity';
 const DECREASE_QUANTITY = 'cart/decreaseQuantity';
+const REST_CART = 'cart/restCart';
 
 // Actions
 export const addToCart = (product) => ({
@@ -16,6 +17,10 @@ export const increaseQuantity = (productId) => ({
 export const decreaseQuantity = (productId) => ({
   type: DECREASE_QUANTITY,
   payload: productId,
+});
+
+export const restCartItems = () => ({
+  type: REST_CART,
 });
 
 // Functions
@@ -79,6 +84,10 @@ function cartReducer(state = initialState, action) {
         };
       }
       return state;
+    }
+
+    case REST_CART: {
+      return { cart: null, totalPrice: 0 };
     }
     default:
       return state;
