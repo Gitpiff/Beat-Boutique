@@ -2,7 +2,7 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 #root {
@@ -20,7 +20,7 @@
 .btn {
   cursor: pointer;
   border: none;
-  background-color: #70d6ff;
+  background-color: #252422;
   color: white;
   padding: 15px 32px;
   font-size: 18px;
@@ -72,18 +72,8 @@ h2 {
   font-weight: 500;
 }
 
-button {
-  background-color: rgb(180, 72, 72);
-  padding: 5px;
-
-  border-radius: 5px;
-  color: rgb(255, 237, 237);
-
-}
-
 ul {
   list-style-type: none;
-  padding: 0 20px;
 }
 
 /* ---------General Class Styling------------ */

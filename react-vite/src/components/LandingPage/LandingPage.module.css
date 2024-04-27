@@ -1,8 +1,41 @@
 .imageContainer {
     display: flex;
-    height: 500px;
+    height: 550px;
     width: 100%;
-    background-color: #70d6ff;
+    background-color: #252422;
+}
+
+.imgContainer {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        'image1 image1 image2'
+        'image1 image1 image3'
+        'image1 image1 image4';
+    justify-items: stretch;
+    opacity: .7;
+}
+
+
+.image1 {
+    grid-area: image1;
+    height: 550px;
+}
+
+.image2 {
+    grid-area: image2;
+    height: 183.3px
+}
+
+.image3 {
+    grid-area: image3;
+    height: 183.3px
+}
+
+.image4 {
+    grid-area: image4;
+    height: 183.3px
 }
 
 .productList {
