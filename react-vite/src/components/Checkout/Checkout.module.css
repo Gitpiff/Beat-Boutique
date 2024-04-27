@@ -1,0 +1,21 @@
+.cart {
+    display: flex;
+    gap: 25px;
+    margin: 10px 0px;
+}
+
+.img {
+    display: flex;
+}
+
+.itemDetails {
+    display: flex;
+    gap: 25px;
+    text-align: end;
+}
+
+.shoppingCart {
+    display: flex;
+    justify-content: space-around;
+    width: 1400px;
+}
