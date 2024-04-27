@@ -1,0 +1,41 @@
+.cart {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    margin: 10px 0px;
+}
+
+.img {
+    display: flex;
+}
+
+.img h2 {
+    margin: 0px 20px;
+}
+
+.itemDetails {
+    display: flex;
+    gap: 25px;
+    text-align: end;
+}
+
+.shoppingCart {
+    display: flex;
+    justify-content: space-around;
+    width: 1400px;
+}
+
+.totalPrice {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 250px;
+}
+
+.orderSummary {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 5px;
+}

@@ -12,6 +12,7 @@ function ProfileButton() {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
+  const shoppingCart = useSelector((store) => store.cart);
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -54,7 +55,7 @@ function ProfileButton() {
                 Hello, {user.first_name} {user.last_name}
               </li>
               <li>
-                <NavLink to={'/user/account'}>My Account</NavLink>
+                <NavLink to={'/user/current'}>My Account</NavLink>
               </li>
               <li>{user.username}</li>
               <li>{user.email}</li>
@@ -62,8 +63,12 @@ function ProfileButton() {
                 <button className="logout-btn" onClick={logout}>
                   Sign Out
                 </button>
-                <NavLink to={'/checkout'}>
+                <NavLink to={'/checkout'} className="cart">
                   <AiOutlineShoppingCart size={30} cursor={'pointer'} color={'black'} />
+
+                  {shoppingCart.cart && Object.keys(shoppingCart.cart).length > 0 && (
+                    <span>{Object.keys(shoppingCart.cart).length}</span>
+                  )}
                 </NavLink>
               </li>
             </>

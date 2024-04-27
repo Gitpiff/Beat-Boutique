@@ -4,10 +4,10 @@ from app.models import db, User
 from app.forms import LoginForm, SignUpForm, UpdateUserForm
 from flask_login import login_user, logout_user
 
-user_routes = Blueprint('users', __name__)
+user_routes = Blueprint("users", __name__)
 
 
-@user_routes.route('/<int:id>')
+@user_routes.route("/<int:id>")
 @login_required
 def user(id):
     """
@@ -15,11 +15,11 @@ def user(id):
     """
     user = User.query.get(id)
     if not user:
-        return {'errors': ['User not found']}, 404
+        return {"errors": ["User not found"]}, 404
     return user.to_dict()
 
 
-@user_routes.route('signup', methods=['POST'])
+@user_routes.route("signup", methods=["POST"])
 def create_user():
     """
     Creates a new user and logs them in - no authentication required.
@@ -32,7 +32,7 @@ def create_user():
             email=form.email.data,
             password=form.password.data,
             first_name=form.first_name.data,
-            last_name=form.last_name.data
+            last_name=form.last_name.data,
         )
 
         db.session.add(user)
@@ -40,10 +40,10 @@ def create_user():
         login_user(user)
 
         return user.to_dict(), 201
-    return {'errors': form.errors}, 400
+    return {"errors": form.errors}, 400
 
 
-@user_routes.route('/<int:id>', methods=['PUT'])
+@user_routes.route("/<int:id>", methods=["PUT"])
 @login_required
 def update_user(id):
     """
@@ -51,9 +51,9 @@ def update_user(id):
     """
     user = User.query.get(id)
     if not user:
-        return {'errors': ['User not found']}, 404
+        return {"errors": ["User not found"]}, 404
     if user.id != current_user.id:
-        return {'errors': ['Unauthorized']}, 401
+        return {"errors": ["Unauthorized"]}, 401
 
     form = UpdateUserForm()
     form.csrf_token.data = request.cookies["csrf_token"]
@@ -64,10 +64,10 @@ def update_user(id):
         user.last_name = form.last_name.data
         db.session.commit()
         return user.to_dict()
-    return {'errors': form.errors}, 400
+    return {"errors": form.errors}, 400
 
 
-@user_routes.route('/<int:id>', methods=['DELETE'])
+@user_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
 def delete_user(id):
     """
@@ -75,16 +75,16 @@ def delete_user(id):
     """
     user = User.query.get(id)
     if not user:
-        return {'errors': ['User not found']}, 404
+        return {"errors": ["User not found"]}, 404
     if user.id != current_user.id:
-        return {'errors': ['Unauthorized']}, 401
+        return {"errors": ["Unauthorized"]}, 401
 
     db.session.delete(user)
     db.session.commit()
-    return {'message': 'User deleted successfully'}
+    return {"message": "User deleted successfully"}
 
 
-@user_routes.route('/current')
+@user_routes.route("/current")
 @login_required
 def get_current_user():
     """
