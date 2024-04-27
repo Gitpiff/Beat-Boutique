@@ -26,9 +26,9 @@ const createNewProducts = (product) => ({
   payload: product,
 });
 
-const updateProductsById = (id) => ({
+const updateProductsById = (product) => ({
   type: UPDATE_PRODUCTS_BY_ID,
-  payload: id,
+  payload: product,
 });
 
 const deleteProductsById = (id) => ({
@@ -95,6 +95,9 @@ export const createNewProduct = (prodData) => async (dispatch) => {
 
         const imageResponse = await fetch(`/api/products/images/${newProduct.id}`, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: formData,
         });
 
@@ -116,13 +119,18 @@ export const createNewProduct = (prodData) => async (dispatch) => {
 };
 
 export const updateProductById = (id, product) => async (dispatch) => {
-  const { name, description, price, inventory } = product;
+  const { name, description, type, price, inventory } = product;
 
+  console.log("type   ", type)
   const response = await fetch(`/api/products/${id}`, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
       name,
       description,
+      type,
       price,
       inventory,
     }),
@@ -132,9 +140,10 @@ export const updateProductById = (id, product) => async (dispatch) => {
 
     if (data.errors) return;
 
-    dispatch(updateProductsById(id));
+    dispatch(updateProductsById(data));
   }
 };
+
 
 export const deleteProductById = (id) => async (dispatch) => {
   const response = await fetch(`/api/products/${id}`, {

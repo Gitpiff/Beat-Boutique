@@ -6,6 +6,7 @@ import LoginFormPage from '../components/LoginFormPage'
 import CreateProduct from "../components/CreateProduct";
 // import CreateReview from "../components/CreateReview";
 import UserProducts from "../components/UserProducts";
+import EditProduct from "../components/EditProduct"
 
 export const router = createBrowserRouter([
   {
@@ -35,10 +36,10 @@ export const router = createBrowserRouter([
       //   path: "review/new",
       //   element: <CreateReview />,
       // },
-      // {
-      //   path: "products/:id/edit",
-      //   element: <UpdateProduct />,
-      // },
+      {
+        path: "products/:id/edit",
+        element: <EditProduct />,
+      },
       // {
       //   path: "reviews/:id/edit",
       //   element: <UpdateReview />,

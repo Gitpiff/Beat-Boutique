@@ -45,6 +45,7 @@ def get_current_user_products():
     """
     user_id = current_user.id
     user_products = Product.query.options(joinedload(Product.images)).filter_by(owner_id=user_id).all()
+    print(user_products)
     return jsonify([product.to_dict() for product in user_products])
 
 
