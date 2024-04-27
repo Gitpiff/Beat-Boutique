@@ -5,6 +5,7 @@ import LandingPage from '../components/LandingPage';
 // import CreateProduct from "../components/CreateProduct";
 // import CreateReview from "../components/CreateReview";
 // import UserProducts from "../components/UserProducts";
+import Checkout from '../components/Checkout';
 
 export const router = createBrowserRouter([
   {
@@ -38,10 +39,10 @@ export const router = createBrowserRouter([
       //   path: "reviews/:id/edit",
       //   element: <UpdateReview />,
       // },
-      // {
-      //   path: 'checkout',
-      //   element: <Checkout />,
-      // },
+      {
+        path: '/checkout',
+        element: <Checkout />,
+      },
     ],
   },
 ]);
