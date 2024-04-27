@@ -121,7 +121,6 @@ export const createNewProduct = (prodData) => async (dispatch) => {
 export const updateProductById = (id, product) => async (dispatch) => {
   const { name, description, type, price, inventory } = product;
 
-  console.log("type   ", type)
   const response = await fetch(`/api/products/${id}`, {
     method: 'PUT',
     headers: {

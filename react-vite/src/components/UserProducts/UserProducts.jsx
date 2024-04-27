@@ -18,6 +18,10 @@ const UserProducts = () => {
     }
   }, [dispatch, sessionUser]);
 
+  if(!userProducts){
+    return <h1>Loading...</h1>
+  }
+
   return (
     <div className="user-products-page">
       <div className="header">

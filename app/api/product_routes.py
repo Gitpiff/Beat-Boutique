@@ -110,6 +110,7 @@ def update_products(product_id):
         product.name = data.get("name", product.name)
         product.description = data.get("description", product.description)
         product.price = data.get("price", product.price)
+        product.type = data.get("type", product.type)
         product.inventory = data.get("inventory", product.inventory)
 
     db.session.commit()

@@ -17,7 +17,6 @@ function EditProduct() {
     type: "",
   });
 
-  console.log(prodData, "ProdData")
   useEffect(() => {
     dispatch(getProductById(id));
   }, [dispatch, id]);
@@ -25,11 +24,11 @@ function EditProduct() {
   useEffect(() => {
     if (product) {
       setProdData({
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        inventory: product.inventory,
-        type: product.type,
+        name: product.name || "",
+        description: product.description || "",
+        price: product.price || "",
+        inventory: product.inventory || "",
+        type: product.type || "",
       });
     }
   }, [product]);
@@ -47,19 +46,18 @@ function EditProduct() {
     try {
       const updatedProductData = {
         ...prodData,
-        type: prodData.type,
         price: +prodData.price,
         inventory: +prodData.inventory,
       };
-      console.log("handle submit  ", updatedProductData)
       await dispatch(updateProductById(id, updatedProductData));
+      navigate(`/products/${id}`);
     } catch (error) {
       console.error("Error updating product: ", error);
     }
   };
 
   const handleCancel = () => {
-    navigate(`/products/current`);
+    return navigate(`/products/current`);
   };
 
   if (!product) {
