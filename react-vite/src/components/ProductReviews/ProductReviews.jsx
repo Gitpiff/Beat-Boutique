@@ -46,18 +46,18 @@ const ProductReviews = () => {
                 }, 0)/reviews.length).toFixed(1)}
             </h1>
             {reviews.map((review) => (
-               <div key={review.id}>
+               <div key={review?.id}>
                     <span>
-                        {review.review}
+                        {review?.review}
                         <br />
                         Rating: {review?.rating}
                         <br />
-                        Review posted on: {getDate(review.created_at)}
+                        Review posted on: {getDate(review?.created_at)}
                         <br />
                         {/* Author: {review.user_id} */}
                     </span>
                     <br />
-                    {sessionUser && sessionUser.id === review.user_id &&
+                    {sessionUser && sessionUser.id === review?.user_id &&
                     <>
                         <EditReviewButton review={review}/>
                         <DeleteReviewButton review={review}/>

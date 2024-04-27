@@ -11,7 +11,7 @@ import ProductReviews from "../components/ProductReviews";
 
 
 export const router = createBrowserRouter([
-
+  {
     element: <Layout />,
     children: [
       {
@@ -33,15 +33,15 @@ export const router = createBrowserRouter([
       {
         path: "reviews/:productId",
         element: <ProductReviews />
-      }
+      },
       // {
       //   path: "products/current",
       //   element: <UserProducts />,
       // },
-      {
-        path: "products/new",
-        element: <CreateProduct />,
-      },
+      // {
+      //   path: "products/new",
+      //   element: <CreateProduct />,
+      // },
       // {
       //   path: "review/new",
       //   element: <CreateReview />,
