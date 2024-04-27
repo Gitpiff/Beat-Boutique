@@ -127,10 +127,15 @@ def delete_product(product_id):
     product = Product.query.get(product_id)
 
     if not product:
-        return jsonify({"error": "Product not found"})
+        return jsonify({"error": "Product not found"}), 404
 
     if current_user.id != product.owner_id:
-        return jsonify({"error": "unauthorized"})
+        return jsonify({"error": "unauthorized"}), 403
+
+    product_images = ProductImage.query.filter_by(product_id=product_id).all()
+    for image in product_images:
+        remove_file_from_s3(image.image_url)
+        db.session.delete(image)
 
     db.session.delete(product)
     db.session.commit()
@@ -208,12 +213,12 @@ def delete_image(image_id):
     image_product = ProductImage.query.get(image_id)
 
     if not image_product:
-        return jsonify({"error": "Product Image not found"}), 400
+        return jsonify({"error": "Product Image not found"}), 404
 
-    products = Product.query.get(image_product.to_dict()["product_id"])
+    # products = Product.query.get(image_product.to_dict()["product_id"])
 
-    if current_user.id != products.to_dict().owner_id:
-        return jsonify({"error": "unauthorized"})
+    # if current_user.id != products.to_dict().owner_id:
+    #     return jsonify({"error": "unauthorized"})
 
     remove_file_from_s3(image_product.image_url)
 

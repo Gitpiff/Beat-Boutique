@@ -2,15 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUserProducts } from "../../redux/products";
-import OpenModalButton from "../OpenModalButton";
-// import EditProduct from "../EditProduct";
-import DeleteConfirmationModal from "../DeleteProduct/DeleteConfirmationModal";
+import DeleteProductButton from "../DeleteProduct/DeleteProductButton";
 import "./UserProducts.css";
 
 const UserProducts = () => {
   const dispatch = useDispatch();
-  const userProducts = useSelector((state) => state.products.userProducts);
+  const userProducts = useSelector((state) => Object.values(state.products.userProducts)) || [];
   const sessionUser = useSelector((state) => state.session.user);
+
 
   useEffect(() => {
     if (sessionUser) {
@@ -18,8 +17,9 @@ const UserProducts = () => {
     }
   }, [dispatch, sessionUser]);
 
-  if(!userProducts){
-    return <h1>Loading...</h1>
+
+  if (!userProducts) {
+    return <h1>Loading...</h1>;
   }
 
   return (
@@ -47,18 +47,8 @@ const UserProducts = () => {
               <Link to={`/products/${product.id}/edit`} className="edit-button">
                 Edit
               </Link>
-              <OpenModalButton
-                buttonText="Delete"
-                modalComponent={
-                  <DeleteConfirmationModal
-                    productId={product.id}
-                    onClose={() => dispatch(fetchUserProducts())}
-                  />
-                }
-                onModalClose={() => dispatch(fetchUserProducts())}
-              />
+              <DeleteProductButton product={product.id} />
             </div>
-
           </div>
         ))}
       </div>

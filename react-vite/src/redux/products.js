@@ -154,17 +154,13 @@ export const deleteProductById = (id) => async (dispatch) => {
     if (data.errors) return;
 
     dispatch(deleteProductsById(id));
-
-    await fetch(`/api/products/images/${id}`, {
-      method: 'DELETE',
-    });
   }
 };
 
 // Reducer
 const initialState = {
   products: null,
-  userProducts: [],
+  userProducts: {},
 };
 
 function productReducer(state = initialState, action) {
@@ -179,10 +175,11 @@ function productReducer(state = initialState, action) {
       return products;
     }
     case GET_USER_PRODUCTS: {
-      return {
-        ...state,
-        userProducts: action.payload,
-      };
+        const newState = {userProducts: {}, ...state }
+        action.payload.forEach(product => {
+          newState.userProducts[product.id] = product
+        })
+        return newState
     }
     case GET_PRODUCTS_BY_ID: {
       return { [action.payload.id]: action.payload };
@@ -194,7 +191,8 @@ function productReducer(state = initialState, action) {
       return { ...state, [action.payload.id]: action.payload };
     }
     case DELETE_PRODUCT_BY_ID: {
-      const products = { ...state };
+      const products = { userProducts: {...state.userProducts}, ...state };
+      delete products.userProducts[action.payload];
       delete products[action.payload];
       return products;
     }
