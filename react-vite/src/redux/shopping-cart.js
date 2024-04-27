@@ -8,12 +8,12 @@ export const addToCart = (product) => ({
   payload: product,
 });
 
-export const increaseQuantityOnProduct = (productId) => ({
+export const increaseQuantity = (productId) => ({
   type: INCREASE_QUANTITY,
   payload: productId,
 });
 
-export const decreaseQuantityOnProduct = (productId) => ({
+export const decreaseQuantity = (productId) => ({
   type: DECREASE_QUANTITY,
   payload: productId,
 });
