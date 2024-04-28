@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById, updateProductById } from '../../redux/products';
+import './EditProduct.css'
 
 function EditProduct() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function EditProduct() {
     description: '',
     price: '',
     inventory: '',
-    type: '',
+    type: product?.type.value,
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function EditProduct() {
     dispatch(getProductById(id));
   }, [dispatch, id, sessionUser, navigate]);
 
+  console.log(product.type)
   useEffect(() => {
     if (product) {
       setProdData({
@@ -30,7 +32,7 @@ function EditProduct() {
         description: product.description || '',
         price: product.price || '',
         inventory: product.inventory || '',
-        type: product.type || '',
+        type: product?.type,
       });
     }
   }, [product]);
@@ -121,10 +123,12 @@ function EditProduct() {
             min="0"
           />
         </div>
+        <div className="button-group">
         <button type="submit" className="submit-button">Update Product</button>
         <button type="button" onClick={handleCancel} className="cancel-button">
           Cancel
         </button>
+        </div>
       </form>
     </div>
   );

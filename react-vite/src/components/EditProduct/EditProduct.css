@@ -43,38 +43,90 @@
     margin-top: 10px;
   }
 
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
+  Certainly! To center the cancel button beneath the create button, you can update the CSS for the .button-group class. Here's the modified CSS:
+cssCopy code.edit-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  .submit-button,
-  .cancel-button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
+.edit-form {
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-  .submit-button {
-    background-color: #252422;
-    color: white;
-  }
+.form-group {
+  margin-bottom: 15px;
+}
 
-  .submit-button:hover {
-    background-color: #3c3a37;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+label {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
 
-  .cancel-button {
-    background-color: #ccc;
-    color: #333;
-  }
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-  .cancel-button:hover {
-    background-color: #bbb;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+textarea {
+  height: 5rem;
+  resize: none;
+}
+
+.required-message {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 10px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.submit-button,
+.cancel-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  background-color: #252422;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #3c3a37;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: #333;
+  width: 100px;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.cancel-button:hover {
+  background-color: #bbb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
