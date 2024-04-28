@@ -107,6 +107,7 @@ function EditProduct() {
             value={prodData.inventory}
             onChange={handleChange}
             required
+            min="0"
           />
         </div>
         <div className="form-group">
@@ -117,6 +118,7 @@ function EditProduct() {
             value={prodData.price}
             onChange={handleChange}
             required
+            min="0"
           />
         </div>
         <button type="submit" className="submit-button">Update Product</button>
