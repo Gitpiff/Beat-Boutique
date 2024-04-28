@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById, updateProductById } from '../../redux/products';
-import './EditProduct.css'
+import './EditProduct.css';
 
 function EditProduct() {
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ function EditProduct() {
       <form onSubmit={handleSubmit} className="edit-form">
         <div className="form-group">
           <label>Name</label>
-          <input
+          <input className='data-input'
             type="text"
             name="name"
             value={prodData.name}
@@ -84,7 +84,7 @@ function EditProduct() {
         </div>
         <div className="form-group">
           <label>Description</label>
-          <textarea
+          <textarea className='data-input'
             name="description"
             value={prodData.description}
             onChange={handleChange}
@@ -92,7 +92,7 @@ function EditProduct() {
         </div>
         <div className="form-group">
           <label>Type</label>
-          <select name="type" value={prodData.type} onChange={handleChange} required>
+          <select name="type" value={prodData.type} onChange={handleChange} className='data-input' required>
             <option value="">Select Type</option>
             <option value="MUSICAL_INSTRUMENTS">Musical Instruments</option>
             <option value="CLOTHING">Clothing</option>
@@ -103,7 +103,7 @@ function EditProduct() {
         </div>
         <div className="form-group">
           <label>Inventory</label>
-          <input
+          <input className='data-input'
             type="number"
             name="inventory"
             value={prodData.inventory}
@@ -114,7 +114,7 @@ function EditProduct() {
         </div>
         <div className="form-group">
           <label>Price</label>
-          <input
+          <input className='data-input'
             type="number"
             name="price"
             value={prodData.price}
