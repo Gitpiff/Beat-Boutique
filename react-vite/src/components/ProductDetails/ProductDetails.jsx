@@ -68,23 +68,23 @@ const ProductDetails = () => {
           </button>
         )}
 
-{/*         
+        
         <div>
           {sessionUser && sessionUser.id !== product.owner_id && Array.isArray(reviews) && !reviews.some((review) => review?.user_id === sessionUser.id) && (
             <ReviewButton productId={productId} userId={sessionUser?.id} />
           )}
-        </div> */}
+        </div>
 
         <div className="product-reviews">
           {reviews[0] === null ? (
             <>
               <h1>No Reviews yet... be the first one to post a review! </h1>
 
-              <div>
+              {/* <div>
                 {sessionUser && sessionUser.id !== product.owner_id && Array.isArray(reviews) && !reviews.some((review) => review?.user_id === sessionUser.id) && (
                   <ReviewButton productId={productId} userId={sessionUser?.id} />
                 )}
-             </div>
+             </div> */}
             </>)
            : (
             <ProductReviews productId={productId} product={product} />

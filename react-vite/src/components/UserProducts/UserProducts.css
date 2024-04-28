@@ -22,3 +22,21 @@
   object-fit: cover;
   margin-bottom: 10px;
 }
+
+.create-product-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #252422;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+}
+
+.create-product-button:hover {
+  background-color: #3c3a37;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
