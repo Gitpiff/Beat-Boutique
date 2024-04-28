@@ -29,6 +29,7 @@ function CreateProduct() {
       [name]: value,
     }));
   };
+  
 
   const handleImageChange = (e) => {
     setSelectedImage(e.target.files[0]);
