@@ -1,15 +1,12 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginFormPage from "../components/LoginFormPage";
-import SignupFormPage from "../components/SignupFormPage";
-import Layout from "./Layout";
-import LandingPage from "../components/LandingPage";
-import ProductDetails from "../components/ProductDetails";
-import ProductReviews from "../components/ProductReviews";
-import CreateProduct from "../components/CreateProduct";
-import UserProducts from "../components/UserProducts";
-import EditProduct from "../components/EditProduct"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from './Layout';
+import LandingPage from '../components/LandingPage';
+import ProductDetails from '../components/ProductDetails';
+import ProductReviews from '../components/ProductReviews';
+import CreateProduct from '../components/CreateProduct';
+import UserProducts from '../components/UserProducts';
+import EditProduct from '../components/EditProduct';
 import Checkout from '../components/Checkout';
-
 
 export const router = createBrowserRouter([
   {
@@ -20,23 +17,23 @@ export const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "products/:productId",
+        path: 'products/:productId',
         element: <ProductDetails />,
       },
       {
-        path: "reviews/:productId",
-        element: <ProductReviews />
+        path: 'reviews/:productId',
+        element: <ProductReviews />,
       },
       {
-        path: "products/current",
+        path: 'products/current',
         element: <UserProducts />,
       },
       {
-        path: "products/new",
+        path: 'products/new',
         element: <CreateProduct />,
       },
       {
-        path: "products/:id/edit",
+        path: 'products/:id/edit',
         element: <EditProduct />,
       },
       {
