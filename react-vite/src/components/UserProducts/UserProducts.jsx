@@ -44,7 +44,7 @@ const UserProducts = () => {
               </div>
             </Link>
             <div className="product-actions">
-              <Link to={`/products/${product?.id}/edit`} className="edit-button">
+              <Link to={`/products/${product?.id}/edit`} className="btn edit-btn">
                 Edit
               </Link>
               <DeleteProductButton product={product?.id} />
