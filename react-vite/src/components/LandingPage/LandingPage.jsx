@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getAllProducts } from '../../redux/products';
 import styles from './LandingPage.module.css';
 import instruments from '../../../../images/instruments.jpeg';
@@ -10,7 +10,7 @@ import rock from '../../../../images/rock_image.jpeg';
 
 const LandingPage = () => {
   const products = useSelector((state) => state.products);
-  const allProducts = Object.values(products).slice(0, 10);
+  const allProducts = Object.values(products);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -47,9 +47,6 @@ const LandingPage = () => {
             </div>
           ))}
         </div>
-        <NavLink to={'/products'} className="btn">
-          View Products
-        </NavLink>
       </div>
     </>
   );
