@@ -57,7 +57,7 @@ const ProductDetails = () => {
         <p>{product.description}</p>
         <p>Quantity Left: {product.inventory}</p>
 
-        {sessionUser && (
+        {sessionUser && sessionUser.id !== product.owner_id && (
           <button
             className="btn confirm-btn"
             onClick={() => dispatch(addProductToCart(product))}
@@ -67,7 +67,9 @@ const ProductDetails = () => {
         )}
 
         <div>
-          {sessionUser && <ReviewButton productId={productId} userId={sessionUser?.id} />}
+          {sessionUser && sessionUser.id !== product.owner_id && (
+            <ReviewButton productId={productId} userId={sessionUser?.id} />
+          )}
         </div>
 
         <div className="product-reviews">
