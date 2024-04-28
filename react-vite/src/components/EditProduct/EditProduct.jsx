@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById, updateProductById } from '../../redux/products';
+import './EditProduct.css'
 
 function EditProduct() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function EditProduct() {
     description: '',
     price: '',
     inventory: '',
-    type: '',
+    type: product?.type.value,
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function EditProduct() {
     dispatch(getProductById(id));
   }, [dispatch, id, sessionUser, navigate]);
 
+  console.log(product.type)
   useEffect(() => {
     if (product) {
       setProdData({
@@ -30,7 +32,7 @@ function EditProduct() {
         description: product.description || '',
         price: product.price || '',
         inventory: product.inventory || '',
-        type: product.type || '',
+        type: product?.type,
       });
     }
   }, [product]);
@@ -67,10 +69,10 @@ function EditProduct() {
   }
 
   return (
-    <div>
-      <h2>Edit Product</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="edit-form-container">
+      <h1>Edit Product</h1>
+      <form onSubmit={handleSubmit} className="edit-form">
+        <div className="form-group">
           <label>Name</label>
           <input
             type="text"
@@ -80,7 +82,7 @@ function EditProduct() {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Description</label>
           <textarea
             name="description"
@@ -88,7 +90,7 @@ function EditProduct() {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Type</label>
           <select name="type" value={prodData.type} onChange={handleChange} required>
             <option value="">Select Type</option>
@@ -99,7 +101,7 @@ function EditProduct() {
             <option value="PINS">Pins</option>
           </select>
         </div>
-        <div>
+        <div className="form-group">
           <label>Inventory</label>
           <input
             type="number"
@@ -107,9 +109,10 @@ function EditProduct() {
             value={prodData.inventory}
             onChange={handleChange}
             required
+            min="0"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Price</label>
           <input
             type="number"
@@ -117,12 +120,15 @@ function EditProduct() {
             value={prodData.price}
             onChange={handleChange}
             required
+            min="0"
           />
         </div>
-        <button type="submit">Update Product</button>
-        <button type="button" onClick={handleCancel}>
+        <div className="button-group">
+        <button type="submit" className="submit-button">Update Product</button>
+        <button type="button" onClick={handleCancel} className="cancel-button">
           Cancel
         </button>
+        </div>
       </form>
     </div>
   );
