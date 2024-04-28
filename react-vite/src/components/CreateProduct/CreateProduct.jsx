@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from '../../redux/products';
 import { useNavigate } from 'react-router-dom';
+import "./CreateProduct.css";
 
 function CreateProduct() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function CreateProduct() {
       [name]: value,
     }));
   };
-  
+
 
   const handleImageChange = (e) => {
     setSelectedImage(e.target.files[0]);
@@ -37,6 +38,11 @@ function CreateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!selectedImage) {
+      alert('Please select an image before submitting.');
+      return;
+    }
     if (sessionUser) {
       try {
         const newProductData = {
@@ -74,8 +80,9 @@ function CreateProduct() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className='create-form'>
+      <h1>Create Your Product</h1>
+      <div className='form-group'>
         <label>Name</label>
         <input
           type="text"
@@ -85,15 +92,16 @@ function CreateProduct() {
           required
         />
       </div>
-      <div>
+      <div className='form-group'>
         <label>Description</label>
         <textarea
           name="description"
           value={prodData.description}
           onChange={handleChange}
+          required
         />
       </div>
-      <div>
+      <div className='form-group'>
         <label>Type</label>
         <select name="type" value={prodData.type} onChange={handleChange} required>
           <option value="">Select Type</option>
@@ -104,7 +112,7 @@ function CreateProduct() {
           <option value="PINS">Pins</option>
         </select>
       </div>
-      <div>
+      <div className='form-group'>
         <label>Inventory</label>
         <input
           type="number"
@@ -114,7 +122,7 @@ function CreateProduct() {
           required
         />
       </div>
-      <div>
+      <div className='form-group'>
         <label>Price</label>
         <input
           type="number"
@@ -124,11 +132,13 @@ function CreateProduct() {
           required
         />
       </div>
-      <div>
+      <div className='form-group'>
         <label>Image</label>
         <input type="file" onChange={handleImageChange} />
+        {!selectedImage && <p className="error-message">Please select an image before submitting.</p>}
       </div>
-      <button type="submit">Create Product</button>
+      <p className="required-message"><em>All fields are required.</em></p>
+      <button type="submit" className='submit-button'>Create Product</button>
     </form>
   );
 }
