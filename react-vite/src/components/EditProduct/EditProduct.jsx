@@ -68,7 +68,7 @@ function EditProduct() {
 
   return (
     <div className="edit-form-container">
-      <h2>Edit Product</h2>
+      <h1>Edit Product</h1>
       <form onSubmit={handleSubmit} className="edit-form">
         <div className="form-group">
           <label>Name</label>

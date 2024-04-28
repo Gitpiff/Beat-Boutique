@@ -120,6 +120,7 @@ function CreateProduct() {
           value={prodData.inventory}
           onChange={handleChange}
           required
+          min="0"
         />
       </div>
       <div className='form-group'>
@@ -130,6 +131,7 @@ function CreateProduct() {
           value={prodData.price}
           onChange={handleChange}
           required
+          min="0"
         />
       </div>
       <div className='form-group'>
