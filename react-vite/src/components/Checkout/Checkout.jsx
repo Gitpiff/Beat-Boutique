@@ -8,14 +8,13 @@ import styles from './Checkout.module.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
   const cartItems = Object.values(cart.cart || {});
   const dispatch = useDispatch();
 
-    // Get session user
-  const sessionUser = useSelector(state => state.session.user);
+  // Get session user
+  const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +31,12 @@ const Checkout = () => {
     alert('Order Set!, Shipping soon');
   };
 
-  if (!cartItems.length) return <h1>No items in cart</h1>;
+  if (!cartItems.length)
+    return (
+      <div className={styles.shoppingCart}>
+        <h1>No items in cart</h1>
+      </div>
+    );
 
   return (
     <>

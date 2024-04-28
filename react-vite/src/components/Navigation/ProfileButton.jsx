@@ -57,7 +57,14 @@ function ProfileButton() {
                 Hello, {user.first_name} {user.last_name}
               </li>
               <li>
-                <NavLink to={'/products/current'}>My Account</NavLink>
+                <NavLink to={'/products/current'} onClick={closeMenu}>
+                  My Account
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={'/products/new'} onClick={closeMenu}>
+                  Create New Product
+                </NavLink>
               </li>
               <li>{user.username}</li>
               <li>{user.email}</li>
@@ -65,7 +72,7 @@ function ProfileButton() {
                 <button className="logout-btn" onClick={logout}>
                   Sign Out
                 </button>
-                <NavLink to={'/checkout'} className="cart">
+                <NavLink to={'/checkout'} className="cart" onClick={closeMenu}>
                   <AiOutlineShoppingCart size={30} cursor={'pointer'} color={'black'} />
 
                   {shoppingCart.cart && Object.keys(shoppingCart.cart).length > 0 && (

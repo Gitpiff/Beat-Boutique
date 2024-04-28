@@ -22,8 +22,8 @@
   border: none;
   background-color: #252422;
   color: white;
-  padding: 15px 32px;
-  font-size: 18px;
+  padding: 10px;
+  font-size: 16px;
   margin: 4px 2px;
   border-radius: 5px;
 }
@@ -32,43 +32,56 @@
   transform: translateY(2px);
 }
 
+.edit-btn {
+  background-color: #2b2d42;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.delete-btn {
+  background-color: #ef233c;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.confirm-btn {
+  background-color: #54b0c9;
+}
+
+#modal-content {
+  padding: 20px;
+  border-radius: 10px;
+}
+
 /* ----------Main Element Styling----------- */
+
+form input {
+  width: 100%;
+  margin: 15px 0px;
+  font-size: 16px;
+}
 
 section,
 form {
-  background-color: rgb(235, 235, 235);
   border-radius: 10px;
-  width: 80vw;
+  width: 500px;
   max-width: 700px;
   font-family: Arial, Helvetica, sans-serif;
-}
-
-form {
-  padding: 20px;
 }
 
 li {
   margin: 10px 0px;
 }
 
-
-section>* {
-  display: block;
-  margin: 10px;
-}
-
 a {
   text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
-  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
 
 h2 {
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: 500;
 }
 
@@ -174,11 +187,6 @@ thead {
 
 /* ---------Form Styling------------ */
 
-/* form>* {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
-} */
 
 .go-to-report-form {
   display: flex;
@@ -191,6 +199,8 @@ form>h2 {
 
 label {
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
 }
 
 input {

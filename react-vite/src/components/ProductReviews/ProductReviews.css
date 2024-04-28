@@ -13,16 +13,9 @@ body {
   cursor: pointer;
   background: none;
   border: none;
-  color: gray; 
+  color: gray;
 }
 
 .star.yellow {
-  color: blue; 
-}
-
-form>* {
-  display: flex;
-  flex-direction: row;
-  margin: 20px 0;
-  justify-content: space-evenly;
+  color: blue;
 }
