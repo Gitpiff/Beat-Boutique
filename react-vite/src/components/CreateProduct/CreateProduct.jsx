@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewProduct } from "../../redux/products";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function CreateProduct() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const navigate = useNavigate()
 
   const [prodData, setProdData] = useState({
     name: "",
@@ -60,6 +61,7 @@ function CreateProduct() {
         });
         setSelectedImage(null);
         e.target.reset()
+        navigate(`/products/${newProduct.id}`);
 
       } catch (error) {
         console.error("Error creating product: ", error);
