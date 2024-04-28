@@ -34,14 +34,15 @@ const ProductReviews = () => {
     return newDate.toLocaleDateString('en-US', options);
   };
 
+
   if (!values) return <h1>Loading...</h1>;
 
   return (
-    reviews && (
+    reviews === "null" ? <h1>No Reviews just yet.. Be the first one to post!</h1> : (
       <section>
         <h1>
           Average Rating:{' '}
-          {reviews.length === 1
+          {reviews.length > 0
             ? reviews[0]?.rating
             : (
                 reviews.reduce((sum, review) => {

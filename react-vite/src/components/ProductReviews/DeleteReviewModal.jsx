@@ -11,6 +11,7 @@ const DeleteReviewModal = ({ review }) => {
     e.preventDefault();
     dispatch(deleteProductReview(review.id))
       .then(closeModal)
+      .then(location.reload())
       .catch(async (response) => {
         const data = await response.json();
         return data;

@@ -66,8 +66,9 @@ const ProductDetails = () => {
           </button>
         )}
 
+        
         <div>
-          {sessionUser && sessionUser.id !== product.owner_id && (
+          {sessionUser && sessionUser.id !== product.owner_id && Array.isArray(reviews) && !reviews.some((review) => review?.user_id === sessionUser.id) && (
             <ReviewButton productId={productId} userId={sessionUser?.id} />
           )}
         </div>
