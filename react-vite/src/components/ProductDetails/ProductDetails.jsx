@@ -13,6 +13,7 @@ const ProductDetails = () => {
 
   // Get Product Id
   const { productId } = useParams();
+  console.log(productId);
 
   // Get product from redux store
   const product = useSelector((state) =>
@@ -24,8 +25,9 @@ const ProductDetails = () => {
 
   // Get reviews
   const reviews = Object.values(useSelector((state) => state.reviews));
-  const reviewsLength = reviews.length;
-
+  //console.log(reviews);
+  //const reviewsLength = reviews.length;
+  //console.log(reviewsLength);
   // Get selected product
   useEffect(() => {
     dispatch(getProductById(productId));
@@ -66,15 +68,25 @@ const ProductDetails = () => {
           </button>
         )}
 
-        
+{/*         
         <div>
           {sessionUser && sessionUser.id !== product.owner_id && Array.isArray(reviews) && !reviews.some((review) => review?.user_id === sessionUser.id) && (
             <ReviewButton productId={productId} userId={sessionUser?.id} />
           )}
-        </div>
+        </div> */}
 
         <div className="product-reviews">
-          {reviewsLength >= 1 && (
+          {reviews[0] === null ? (
+            <>
+              <h1>No Reviews yet... be the first one to post a review! </h1>
+
+              <div>
+                {sessionUser && sessionUser.id !== product.owner_id && Array.isArray(reviews) && !reviews.some((review) => review?.user_id === sessionUser.id) && (
+                  <ReviewButton productId={productId} userId={sessionUser?.id} />
+                )}
+             </div>
+            </>)
+           : (
             <ProductReviews productId={productId} product={product} />
           )}
         </div>

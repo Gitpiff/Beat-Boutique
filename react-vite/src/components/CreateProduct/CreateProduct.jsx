@@ -36,6 +36,7 @@ function CreateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (prodData.price > 100000) return alert("Price is too high!");
     if (sessionUser) {
       try {
         const newProductData = {
@@ -65,7 +66,7 @@ function CreateProduct() {
         });
         setSelectedImage(null);
         e.target.reset();
-        navigate(`/products/${newProduct.id}`);
+        navigate(`/products/current`);
       } catch (error) {
         console.error('Error creating product: ', error);
       }

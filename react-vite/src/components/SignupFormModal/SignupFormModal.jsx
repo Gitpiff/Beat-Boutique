@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import { thunkSignup } from '../../redux/session';
@@ -15,14 +15,49 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  useEffect(() => {
+    const errs = {};
+
+
+    if (firstName && firstName.length < 5 || firstName > 50) {
+      errs.firstName = 'First name must be between 5 and 50 characters long.'
+    }
+    if (lastName && lastName.length < 5 || lastName > 50) {
+      
+      errs.lastName = 'Last name must be between 5 and 50 characters long.'
+    
+    }
+    if (username && username.length < 5 || username > 50) {
+     
+      errs.username = 'Username must be between 5 and 50 characters long.'
+     
+    }
+    if (password && password.length < 8) {
+     
+      errs.password = 'password must be greater than 8 characters.'
+     
+    }
+    if (email && email.length < 5 && !email.includes("@")) {
+     
+      errs.email = 'invalid email'
+     
+    }
+
+    setErrors(errs);
+  }, [firstName, lastName, password, email, username])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword: 'Confirm Password field must be the same as the Password field',
       });
     }
+
+    if (errors) {
+      //console.log(errors);
+      return; 
+    } 
 
     const serverResponse = await dispatch(
       thunkSignup({

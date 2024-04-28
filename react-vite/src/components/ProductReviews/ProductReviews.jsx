@@ -38,7 +38,6 @@ const ProductReviews = () => {
   if (!values) return <h1>Loading...</h1>;
 
   return (
-    reviews === "null" ? <h1>No Reviews just yet.. Be the first one to post!</h1> : (
       <section>
         <h1>
           Average Rating:{' '}
@@ -68,7 +67,6 @@ const ProductReviews = () => {
           </div>
         ))}
       </section>
-    )
   );
 };
 
