@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -14,6 +14,7 @@ function ProfileButton() {
   const user = useSelector((store) => store.session.user);
   const shoppingCart = useSelector((store) => store.cart);
   const ulRef = useRef();
+  const navigate = useNavigate();
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -40,6 +41,7 @@ function ProfileButton() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    return navigate('/', { replace: true });
   };
 
   return (

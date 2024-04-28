@@ -1,22 +1,26 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createNewProduct } from "../../redux/products";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewProduct } from '../../redux/products';
+import { useNavigate } from 'react-router-dom';
 
 function CreateProduct() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [prodData, setProdData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    inventory: "",
-    type: "",
+    name: '',
+    description: '',
+    price: '',
+    inventory: '',
+    type: '',
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    if (!sessionUser) navigate('/');
+  }, [sessionUser, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,34 +48,29 @@ function CreateProduct() {
 
         if (newProduct && selectedImage) {
           const formData = new FormData();
-          formData.append("image", selectedImage);
+          formData.append('image', selectedImage);
 
           await fetch(`/api/products/images/${newProduct.id}`, {
-            method: "POST",
+            method: 'POST',
             body: formData,
           });
         }
 
         setProdData({
-          name: "",
-          description: "",
-          price: "",
-          inventory: "",
-          type: "",
+          name: '',
+          description: '',
+          price: '',
+          inventory: '',
+          type: '',
         });
         setSelectedImage(null);
-        e.target.reset()
+        e.target.reset();
         navigate(`/products/${newProduct.id}`);
-
       } catch (error) {
-        console.error("Error creating product: ", error);
+        console.error('Error creating product: ', error);
       }
     }
   };
-
-  if (!sessionUser) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -95,12 +94,7 @@ function CreateProduct() {
       </div>
       <div>
         <label>Type</label>
-        <select
-          name="type"
-          value={prodData.type}
-          onChange={handleChange}
-          required
-        >
+        <select name="type" value={prodData.type} onChange={handleChange} required>
           <option value="">Select Type</option>
           <option value="MUSICAL_INSTRUMENTS">Musical Instruments</option>
           <option value="CLOTHING">Clothing</option>

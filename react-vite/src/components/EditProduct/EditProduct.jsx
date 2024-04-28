@@ -1,34 +1,36 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
-import { getProductById, updateProductById } from "../../redux/products";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getProductById, updateProductById } from '../../redux/products';
 
 function EditProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+  const sessionUser = useSelector((state) => state.session.user);
   const product = useSelector((state) => state.products[id]);
 
   const [prodData, setProdData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    inventory: "",
-    type: "",
+    name: '',
+    description: '',
+    price: '',
+    inventory: '',
+    type: '',
   });
 
   useEffect(() => {
+    if (!sessionUser) navigate('/');
     dispatch(getProductById(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, sessionUser, navigate]);
 
   useEffect(() => {
     if (product) {
       setProdData({
-        name: product.name || "",
-        description: product.description || "",
-        price: product.price || "",
-        inventory: product.inventory || "",
-        type: product.type || "",
+        name: product.name || '',
+        description: product.description || '',
+        price: product.price || '',
+        inventory: product.inventory || '',
+        type: product.type || '',
       });
     }
   }, [product]);
@@ -52,7 +54,7 @@ function EditProduct() {
       await dispatch(updateProductById(id, updatedProductData));
       navigate(`/products/${id}`);
     } catch (error) {
-      console.error("Error updating product: ", error);
+      console.error('Error updating product: ', error);
     }
   };
 
@@ -88,12 +90,7 @@ function EditProduct() {
         </div>
         <div>
           <label>Type</label>
-          <select
-            name="type"
-            value={prodData.type}
-            onChange={handleChange}
-            required
-          >
+          <select name="type" value={prodData.type} onChange={handleChange} required>
             <option value="">Select Type</option>
             <option value="MUSICAL_INSTRUMENTS">Musical Instruments</option>
             <option value="CLOTHING">Clothing</option>
