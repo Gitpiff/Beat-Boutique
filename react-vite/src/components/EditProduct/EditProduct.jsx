@@ -67,10 +67,10 @@ function EditProduct() {
   }
 
   return (
-    <div>
+    <div className="edit-form-container">
       <h2>Edit Product</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="edit-form">
+        <div className="form-group">
           <label>Name</label>
           <input
             type="text"
@@ -80,7 +80,7 @@ function EditProduct() {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Description</label>
           <textarea
             name="description"
@@ -88,7 +88,7 @@ function EditProduct() {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Type</label>
           <select name="type" value={prodData.type} onChange={handleChange} required>
             <option value="">Select Type</option>
@@ -99,7 +99,7 @@ function EditProduct() {
             <option value="PINS">Pins</option>
           </select>
         </div>
-        <div>
+        <div className="form-group">
           <label>Inventory</label>
           <input
             type="number"
@@ -109,7 +109,7 @@ function EditProduct() {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Price</label>
           <input
             type="number"
@@ -119,8 +119,8 @@ function EditProduct() {
             required
           />
         </div>
-        <button type="submit">Update Product</button>
-        <button type="button" onClick={handleCancel}>
+        <button type="submit" className="submit-button">Update Product</button>
+        <button type="button" onClick={handleCancel} className="cancel-button">
           Cancel
         </button>
       </form>
