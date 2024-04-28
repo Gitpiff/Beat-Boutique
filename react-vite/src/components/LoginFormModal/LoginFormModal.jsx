@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { thunkLogin } from "../../redux/session";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import "./LoginForm.css";
+import { useState } from 'react';
+import { thunkLogin } from '../../redux/session';
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../context/Modal';
+import './LoginForm.css';
 
 function LoginFormModal() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
@@ -18,7 +18,7 @@ function LoginFormModal() {
       thunkLogin({
         email,
         password,
-      })
+      }),
     );
 
     if (serverResponse) {
@@ -26,6 +26,10 @@ function LoginFormModal() {
     } else {
       closeModal();
     }
+  };
+
+  const demoUser = () => {
+    dispatch(thunkLogin({ email: 'demo@aa.io', password: 'password' })).then(closeModal);
   };
 
   return (
@@ -54,6 +58,10 @@ function LoginFormModal() {
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
       </form>
+
+      <p id="demo-user" className="btn" onClick={demoUser}>
+        Demo User
+      </p>
     </>
   );
 }
