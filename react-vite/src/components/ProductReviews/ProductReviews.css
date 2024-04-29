@@ -8,14 +8,29 @@ body {
   display: block;
 }
 
+.reviews-container span {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.reviews-container textarea {
+  margin: 20px 0px;
+  padding: 10px;
+}
+
+.starsContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
 .star {
   font-size: 30px;
   cursor: pointer;
   background: none;
   border: none;
-  color: gray;
 }
 
 .star.yellow {
-  color: blue;
+  color: yellow;
 }
