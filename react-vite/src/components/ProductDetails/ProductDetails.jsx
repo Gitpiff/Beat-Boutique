@@ -13,7 +13,6 @@ const ProductDetails = () => {
 
   // Get Product Id
   const { productId } = useParams();
-  console.log(productId);
 
   // Get product from redux store
   const product = useSelector((state) =>
@@ -25,17 +24,12 @@ const ProductDetails = () => {
 
   // Get reviews
   const reviews = Object.values(useSelector((state) => state.reviews));
-  //console.log(reviews);
-  //const reviewsLength = reviews.length;
-  //console.log(reviewsLength);
+
   // Get selected product
   useEffect(() => {
     dispatch(getProductById(productId));
-
-    if (reviews.length) {
-      dispatch(getProductReview(productId));
-    }
-  }, [dispatch, productId, reviews.length]);
+    dispatch(getProductReview(productId));
+  }, [dispatch, productId]);
 
   if (!product) return <h1>Loading...</h1>;
   return (
@@ -68,15 +62,17 @@ const ProductDetails = () => {
           </button>
         )}
 
-        
         <div>
-          {sessionUser && sessionUser.id !== product.owner_id && Array.isArray(reviews) && !reviews.some((review) => review?.user_id === sessionUser.id) && (
-            <ReviewButton productId={productId} userId={sessionUser?.id} />
-          )}
+          {sessionUser &&
+            sessionUser.id !== product.owner_id &&
+            Array.isArray(reviews) &&
+            !reviews.some((review) => review?.user_id === sessionUser.id) && (
+              <ReviewButton productId={productId} userId={sessionUser?.id} />
+            )}
         </div>
 
         <div className="product-reviews">
-          {reviews[0] === null ? (
+          {reviews[0] === null || reviews[0].error ? (
             <>
               <h1>No Reviews yet... be the first one to post a review! </h1>
 
@@ -85,8 +81,8 @@ const ProductDetails = () => {
                   <ReviewButton productId={productId} userId={sessionUser?.id} />
                 )}
              </div> */}
-            </>)
-           : (
+            </>
+          ) : (
             <ProductReviews productId={productId} product={product} />
           )}
         </div>
