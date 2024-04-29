@@ -24,7 +24,6 @@ function EditProduct() {
     dispatch(getProductById(id));
   }, [dispatch, id, sessionUser, navigate]);
 
-  console.log(product.type)
   useEffect(() => {
     if (product) {
       setProdData({
