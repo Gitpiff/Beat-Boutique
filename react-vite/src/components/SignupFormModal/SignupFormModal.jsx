@@ -13,38 +13,33 @@ function SignupFormModal() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [buttonDisable, setButtonDisable] = useState(false);
   const { closeModal } = useModal();
 
   useEffect(() => {
     const errs = {};
 
-
-    if (firstName && firstName.length < 5 || firstName > 50) {
-      errs.firstName = 'First name must be between 5 and 50 characters long.'
+    if ((firstName && firstName.length < 5) || firstName > 50) {
+      errs.firstName = 'First name must be between 5 and 50 characters long.';
     }
-    if (lastName && lastName.length < 5 || lastName > 50) {
-      
-      errs.lastName = 'Last name must be between 5 and 50 characters long.'
-    
+    if ((lastName && lastName.length < 5) || lastName > 50) {
+      errs.lastName = 'Last name must be between 5 and 50 characters long.';
     }
-    if (username && username.length < 5 || username > 50) {
-     
-      errs.username = 'Username must be between 5 and 50 characters long.'
-     
+    if ((username && username.length < 5) || username > 50) {
+      errs.username = 'Username must be between 5 and 50 characters long.';
     }
     if (password && password.length < 8) {
-     
-      errs.password = 'password must be greater than 8 characters.'
-     
+      errs.password = 'password must be greater than 8 characters.';
     }
-    if (email && email.length < 5 && !email.includes("@")) {
-     
-      errs.email = 'invalid email'
-     
+    if ((email && email.length < 5) || !email.includes('@')) {
+      errs.email = 'invalid email';
     }
 
+    if (Object.values(errs).length) setButtonDisable(true);
+    else setButtonDisable(false);
+
     setErrors(errs);
-  }, [firstName, lastName, password, email, username])
+  }, [firstName, lastName, password, email, username]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,10 +49,9 @@ function SignupFormModal() {
       });
     }
 
-    if (errors) {
-      //console.log(errors);
-      return; 
-    } 
+    if (Object.values(errors).length) {
+      return;
+    }
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -90,7 +84,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="errors">{errors.email}</p>}
         <label>
           First Name
           <input
@@ -100,7 +94,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p className="errors">{errors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -110,7 +104,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && <p className="errors">{errors.lastName}</p>}
         <label>
           Username
           <input
@@ -120,7 +114,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className="errors">{errors.username}</p>}
         <label>
           Password
           <input
@@ -130,7 +124,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="errors">{errors.password}</p>}
         <label>
           Confirm Password
           <input
@@ -140,8 +134,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button className="btn confirm-btn" type="submit">
+        {errors.confirmPassword && <p className="errors">{errors.confirmPassword}</p>}
+        <button className="btn confirm-btn" type="submit" disabled={buttonDisable}>
           Sign Up
         </button>
       </form>
