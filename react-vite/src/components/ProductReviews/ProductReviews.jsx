@@ -55,7 +55,6 @@ const ProductReviews = () => {
               <p>{review?.review}</p>
               <p>Rating: {review?.rating}</p>
               <p>Review posted on: {getDate(review?.created_at)}</p>
-              {/* Author: {review.user_id} */}
             </div>
 
             {sessionUser && sessionUser.id === review?.user_id && (

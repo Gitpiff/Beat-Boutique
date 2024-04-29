@@ -71,7 +71,6 @@ nav a {
   padding: 15px;
   border-radius: 5px;
   width: 250px;
-  /* right: 415px; */
   transform: transformX(120px);
   border: 2px solid #000000;
 }
@@ -116,8 +115,3 @@ nav a {
   left: 23px;
 }
 
-/* @media screen and (max-width: 600px) {
-  .profile-dropdown {
-    right: 200px;
-  }
-} */

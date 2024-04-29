@@ -15,14 +15,8 @@ export default function EditReviewModal({review}) {
     useEffect(() => {
         const errs = {};
 
-        // if (newReview && newReview.length < 10) errs.newReview = 'Review must be 10 characters at minimum';
-        // if (newReview.length > 500) errs.newReview = 'Review must be 500 characters at maximum';
-        // if (stars === 0) errs.stars = 'Star rating must be between 1 and 5';
-
         setErrors(errs);
 
-        // dispatch(getProductReview(1))
-        
     }, [dispatch, stars, review, review.id]);
 
     const handleSubmit = async (e) => {
@@ -40,12 +34,9 @@ export default function EditReviewModal({review}) {
             const data = await response.json();
             if(!data) setErrors(data.errors)
         })
-        
-        // return navigate(`/products/${review.product_id}`)
 
     }
 
-    // if(!newReview) return <h1>Loading...</h1>
     return (
         <section>
         <form onSubmit={handleSubmit}>
@@ -53,11 +44,11 @@ export default function EditReviewModal({review}) {
             {errors.review && <span>{errors.review}</span>}
             {errors.stars && <span>{errors.stars}</span>}
 
-            <textarea 
-                placeholder="Leave your new review here.." 
+            <textarea
+                placeholder="Leave your new review here.."
                 value={newReview}
                 onChange={(e) => setNewReview(e.target.value)}
-                cols="77" 
+                cols="77"
                 rows="10"
             />
 
@@ -77,10 +68,10 @@ export default function EditReviewModal({review}) {
                                 &#9734;
                             </button>
                         </div>
-                        
+
                         </>
                     );
-                })} 
+                })}
             </div>
 
         </form>

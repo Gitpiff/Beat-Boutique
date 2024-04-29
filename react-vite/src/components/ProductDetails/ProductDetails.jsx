@@ -75,12 +75,6 @@ const ProductDetails = () => {
           {reviews[0] === null || reviews[0].error ? (
             <>
               <h1>No Reviews yet... be the first one to post a review! </h1>
-
-              {/* <div>
-                {sessionUser && sessionUser.id !== product.owner_id && Array.isArray(reviews) && !reviews.some((review) => review?.user_id === sessionUser.id) && (
-                  <ReviewButton productId={productId} userId={sessionUser?.id} />
-                )}
-             </div> */}
             </>
           ) : (
             <ProductReviews productId={productId} product={product} />
