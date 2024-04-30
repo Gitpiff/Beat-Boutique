@@ -37,7 +37,7 @@ const UserProducts = () => {
               {product?.images && product?.images.length > 0 && (
                 <img src={product.images[0]?.image_url} alt={product?.name} />
               )}
-              <div className="product-details">
+              <div className="product-info">
                 <h3>{product?.name}</h3>
                 <p>{product?.description}</p>
                 <p>Price: ${product?.price}</p>

@@ -33,53 +33,66 @@ const ProductDetails = () => {
 
   if (!product) return <h1>Loading...</h1>;
   return (
-    <section>
+    <section className="flex-wrapper">
       <div className="product-details">
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div>
           {/* Conditional rendering of images if they exist */}
           {product &&
             product.images &&
             product.images.map((image) => (
               <img
-                style={{ width: '400px', height: '500px' }}
                 key={image.id}
                 src={image.image_url}
                 alt={`Product image ${product.name}`}
               />
             ))}
         </div>
-        <h3>{product.name}</h3>
-        <p>${product.price}</p>
-        <p>{product.description}</p>
-        <p>Quantity Left: {product.inventory}</p>
+        <div className="product-description">
+          <div className="p-details">
+            <h3>{product.name}</h3>
+            <p>
+              ${product.price} <small>USD</small>
+            </p>
+          </div>
+          <div className="p-details">
+            <p>
+              <strong>Category:</strong> {product.type}
+            </p>
+            <p>{product.description}</p>
+          </div>
 
-        {sessionUser && sessionUser.id !== product.owner_id && (
-          <button
-            className="btn confirm-btn"
-            onClick={() => dispatch(addProductToCart(product))}
-          >
-            Add to Cart
-          </button>
-        )}
+          <p>Quantity Left: {product.inventory}</p>
 
-        <div>
-          {sessionUser &&
-            sessionUser.id !== product.owner_id &&
-            Array.isArray(reviews) &&
-            !reviews.some((review) => review?.user_id === sessionUser.id) && (
-              <ReviewButton productId={productId} userId={sessionUser?.id} />
+          <div className="p-details">
+            {sessionUser && sessionUser.id !== product.owner_id && (
+              <button
+                className="btn confirm-btn"
+                onClick={() => dispatch(addProductToCart(product))}
+              >
+                Add to Cart
+              </button>
             )}
-        </div>
 
-        <div className="product-reviews">
-          {reviews[0] === null || reviews[0].error ? (
-            <>
-              <h1>No Reviews yet... be the first one to post a review! </h1>
-            </>
-          ) : (
-            <ProductReviews productId={productId} product={product} />
-          )}
+            {sessionUser &&
+              sessionUser.id !== product.owner_id &&
+              Array.isArray(reviews) &&
+              !reviews.some((review) => review?.user_id === sessionUser.id) && (
+                <ReviewButton productId={productId} userId={sessionUser?.id} />
+              )}
+          </div>
         </div>
+      </div>
+
+      <h2>Product Reviews</h2>
+
+      <div className="product-reviews">
+        {reviews[0] === null || reviews[0].error ? (
+          <>
+            <h1>No Reviews yet... be the first one to post a review! </h1>
+          </>
+        ) : (
+          <ProductReviews productId={productId} product={product} />
+        )}
       </div>
     </section>
   );
