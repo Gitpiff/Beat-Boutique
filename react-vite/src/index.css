@@ -9,6 +9,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  min-height: 100vh;
+  position: relative;
 }
 
 .flex {
@@ -48,18 +50,27 @@
   background-color: #54b0c9;
 }
 
+.flex-wrapper {
+  display: flex;
+  min-height: 80vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 1400px;
+}
+
 #modal-content {
   padding: 20px;
   border-radius: 10px;
 }
 
 /* ----------Main Element Styling----------- */
-/* 
-form input {
-  width: 100%;
-  margin: 15px 0px;
-  font-size: 16px;
-} */
+
+img {
+  object-position: center;
+  object-fit: cover;
+  border-radius: 5px;
+}
 
 button:disabled {
   opacity: .6;

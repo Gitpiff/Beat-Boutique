@@ -1,81 +1,76 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateProductReview } from "../../redux/reviews";
-import { useModal } from "../../context/Modal";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateProductReview } from '../../redux/reviews';
+import { useModal } from '../../context/Modal';
+import { CiStar } from 'react-icons/ci';
 
-export default function EditReviewModal({review}) {
-    const dispatch = useDispatch();
-    const { closeModal } = useModal();
+export default function EditReviewModal({ review }) {
+  const dispatch = useDispatch();
+  const { closeModal } = useModal();
 
-    const [stars, setStars] = useState(review.rating);
-    const [newReview, setNewReview] = useState(review.review);
-    const [hover, setHover] = useState(0);
-    const [errors, setErrors] = useState({});
+  const [stars, setStars] = useState(review.rating);
+  const [newReview, setNewReview] = useState(review.review);
+  const [hover, setHover] = useState(0);
+  const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        const errs = {};
+  useEffect(() => {
+    const errs = {};
 
-        setErrors(errs);
+    setErrors(errs);
+  }, [dispatch, stars, review, review.id]);
 
-    }, [dispatch, stars, review, review.id]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({});
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrors({});
+    const updatedReview = {
+      rating: stars,
+      review: newReview,
+    };
 
-        const updatedReview = {
-            rating: stars,
-            review: newReview
-        }
+    dispatch(updateProductReview(review.id, updatedReview))
+      .then(closeModal)
+      .catch(async (response) => {
+        const data = await response.json();
+        if (!data) setErrors(data.errors);
+      });
+  };
 
-        dispatch(updateProductReview(review.id, updatedReview))
-        .then(closeModal)
-        .catch(async (response) => {
-            const data = await response.json();
-            if(!data) setErrors(data.errors)
-        })
+  return (
+    <section>
+      <form onSubmit={handleSubmit}>
+        <h1>Changed your mind? </h1>
+        {errors.review && <span>{errors.review}</span>}
+        {errors.stars && <span>{errors.stars}</span>}
 
-    }
+        <textarea
+          placeholder="Leave your new review here.."
+          value={newReview}
+          onChange={(e) => setNewReview(e.target.value)}
+          cols="77"
+          rows="10"
+        />
 
-    return (
-        <section>
-        <form onSubmit={handleSubmit}>
-            <h1>Changed your mind? </h1>
-            {errors.review && <span>{errors.review}</span>}
-            {errors.stars && <span>{errors.stars}</span>}
-
-            <textarea
-                placeholder="Leave your new review here.."
-                value={newReview}
-                onChange={(e) => setNewReview(e.target.value)}
-                cols="77"
-                rows="10"
-            />
-
-            <div>
-                {[...Array(5)].map((stars, index) => {
-                    index += 1;
-                    return (
-                        <>
-                        <div style={{display: 'flex', flexDirection: 'row'}}>
-                            <button
-                                key={index}
-                                className={index <= (hover || stars) ? 'star yellow' : 'star'}
-                                onClick={() => setStars(index)}
-                                onMouseEnter={() => setHover(index)}
-                                onMouseLeave={() => setHover(stars)}
-                            >
-                                &#9734;
-                            </button>
-                        </div>
-
-                        </>
-                    );
-                })}
-            </div>
-
-        </form>
+        <div className="starsContainer">
+          {[...Array(5)].map((stars, index) => {
+            index += 1;
+            return (
+              <>
+                <div key={index} style={{ display: 'flex', flexDirection: 'row' }}>
+                  <button
+                    className={index <= (hover || stars) ? 'star yellow' : 'star'}
+                    onClick={() => setStars(index)}
+                    onMouseEnter={() => setHover(index)}
+                    onMouseLeave={() => setHover(stars)}
+                  >
+                    <CiStar />
+                  </button>
+                </div>
+              </>
+            );
+          })}
+        </div>
+      </form>
     </section>
-    )
-
+  );
 }

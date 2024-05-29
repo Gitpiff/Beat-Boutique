@@ -1,5 +1,31 @@
 .product-details {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #edf2f4;
+    gap: 30px;
     margin: 20px 0px;
+    padding-bottom: 25px;
+}
+
+.product-details img {
+    width: 400px;
+    height: 550px;
+}
+
+.product-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-description h3 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.p-details p {
+    width: 250px;
+    margin: 7px 0px;
 }
 
 .product-reviews {
