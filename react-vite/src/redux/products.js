@@ -84,7 +84,7 @@ export const createNewProduct = (prodData) => async (dispatch) => {
       const newProduct = await response.json();
       if (newProduct.errors) {
         console.error('Error creating product:', newProduct.errors);
-        return null;
+        return { errors: newProduct.errors };
       }
 
       dispatch(createNewProducts(newProduct));
@@ -104,6 +104,7 @@ export const createNewProduct = (prodData) => async (dispatch) => {
         if (!imageResponse.ok) {
           const errorData = await imageResponse.json();
           console.error('Error adding product image:', errorData);
+          return { errors: errorData.errors };
         }
       }
 

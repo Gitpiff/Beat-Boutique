@@ -21,11 +21,15 @@
 .product-description h3 {
     font-size: 25px;
     margin-bottom: 5px;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
 
 .p-details p {
     width: 250px;
     margin: 7px 0px;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
 
 .product-reviews {
