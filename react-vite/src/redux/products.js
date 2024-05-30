@@ -109,12 +109,13 @@ export const createNewProduct = (prodData) => async (dispatch) => {
 
       return newProduct;
     } else {
-      const errorData = await response.text();
-      throw new Error(`Server responded with ${response.status}: ${errorData}`);
+      const errorData = await response.json();
+      console.error('Error creating product:', errorData);
+      return { errors: errorData.errors }
     }
   } catch (error) {
     console.error('Error creating product:', error);
-    return null;
+    return { errors: ['An error occurred while creating the product.'] };
   }
 };
 

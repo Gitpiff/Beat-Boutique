@@ -58,7 +58,12 @@ def create_new_product():
     form = Products()
 
     form.csrf_token.data = request.cookies["csrf_token"]
+
     if form.validate_on_submit():
+
+        if len(form.data["name"]) > 255:
+            return {"errors": ["Name must be 255 characters or less"]}, 400
+
         new_product = Product(
             name=form.data["name"],
             owner_id=current_user.id,
