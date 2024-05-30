@@ -139,9 +139,17 @@ export const updateProductById = (id, product) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
 
-    if (data.errors) return;
+    if (data.errors) {
+      console.error('Error updating product:', data.errors);
+      return { errors: data.errors };
+    }
 
     dispatch(updateProductsById(data));
+    return data;
+  } else {
+    const errorData = await response.json();
+    console.error('Error updating product:', errorData);
+    return { errors: errorData.errors };
   }
 };
 

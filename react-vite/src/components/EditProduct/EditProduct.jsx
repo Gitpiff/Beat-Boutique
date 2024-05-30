@@ -52,7 +52,15 @@ function EditProduct() {
         price: +prodData.price,
         inventory: +prodData.inventory,
       };
-      await dispatch(updateProductById(id, updatedProductData));
+
+      const updatedProduct = await dispatch(updateProductById(id, updatedProductData));
+
+      if (updatedProduct && updatedProduct.errors) {
+        const errorMessages = updatedProduct.errors.join('\n');
+        alert(errorMessages);
+        return;
+      }
+      
       navigate(`/products/${id}`);
     } catch (error) {
       console.error('Error updating product: ', error);
