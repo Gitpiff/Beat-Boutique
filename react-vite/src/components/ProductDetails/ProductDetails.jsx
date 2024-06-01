@@ -88,11 +88,11 @@ const ProductDetails = () => {
       <div className="product-reviews">
         {reviews[0] === null || reviews[0].error && product.owner_id !== sessionUser ? (
           <>
-            <h1>Your Product Does Not Have Any Reviews Yet...</h1>
+            <h1 style={{marginBottom: "100px"}}>Your Product Does Not Have Any Reviews Yet...</h1>
           </>
         ) : (
           <>
-            <h1>No Reviews yet... be the first one to post a review! </h1>
+            <h1 style={{marginBottom: "100px"}}>No Reviews yet... be the first one to post a review! </h1>
             <ProductReviews productId={productId} product={product} />
           </>
         )}
