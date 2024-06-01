@@ -35,7 +35,7 @@ const LandingPage = () => {
         <div className={`flex ${styles.productContainer}`}>
           {allProducts.map((products) => (
             <div key={products.id} className={styles.productDetails}>
-              <Link to={`products/${products.id}`}>
+              <Link style={{color:"black"}} to={`products/${products.id}`}>
                 <img src={products.images[0]?.image_url} alt="products.name" />
                 <div className={styles.details}>
                   <h3>{products.name}</h3>

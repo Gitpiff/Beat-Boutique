@@ -252,3 +252,7 @@ form>button {
   color: rgb(180, 72, 72);
   font-style: italic;
 }
+
+link {
+  text-decoration: none;
+}
