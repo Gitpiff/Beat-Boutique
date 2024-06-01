@@ -86,12 +86,15 @@ const ProductDetails = () => {
       <h2>Product Reviews</h2>
 
       <div className="product-reviews">
-        {reviews[0] === null || reviews[0].error ? (
+        {reviews[0] === null || reviews[0].error && product.owner_id !== sessionUser ? (
           <>
-            <h1>No Reviews yet... be the first one to post a review! </h1>
+            <h1>Your Product Does Not Have Any Reviews Yet...</h1>
           </>
         ) : (
-          <ProductReviews productId={productId} product={product} />
+          <>
+            <h1>No Reviews yet... be the first one to post a review! </h1>
+            <ProductReviews productId={productId} product={product} />
+          </>
         )}
       </div>
     </section>
