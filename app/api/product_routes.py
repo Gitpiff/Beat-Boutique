@@ -16,7 +16,13 @@ def index():
     """
     Gets all products
     """
-    get_all_products = Product.query.options(joinedload("images")).all()
+    page = request.args.get("page", 1, type=int)
+    size = request.args.get("page_size", 10, type=int)
+
+    get_all_products = Product.query.options(joinedload("images")).paginate(
+        page=page, per_page=size
+    )
+
     products_dict = []
     for product in get_all_products:
         avg_rating = (
@@ -43,10 +49,13 @@ def get_current_user_products():
     Gets all products of the current user along with associated images
     """
     user_id = current_user.id
-    user_products = Product.query.options(joinedload(Product.images)).filter_by(owner_id=user_id).all()
+    user_products = (
+        Product.query.options(joinedload(Product.images))
+        .filter_by(owner_id=user_id)
+        .all()
+    )
     print(user_products)
     return jsonify([product.to_dict() for product in user_products])
-
 
 
 @product_routes.route("/", methods=["POST"])
