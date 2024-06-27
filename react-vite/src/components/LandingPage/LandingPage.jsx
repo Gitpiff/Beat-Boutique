@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../../redux/products';
@@ -9,15 +9,22 @@ import recordStore from '../../../../images/record-store.jpeg';
 import concert from '../../../../images/concert.jpeg';
 
 const LandingPage = () => {
+  const [page, setPage] = useState(1);
+  const size = 10;
+
   const products = useSelector((state) => state.products);
   const allProducts = Object.values(products);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+    dispatch(getAllProducts({ page, size }));
+  }, [dispatch, page]);
 
-  if (allProducts.includes(null)) return <h1>Loading...</h1>;
+  const handleViewMore = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  if (products.products === null) return <h1>Loading...</h1>;
 
   return (
     <>
@@ -50,6 +57,9 @@ const LandingPage = () => {
             </div>
           ))}
         </div>
+        <button className="btn" onClick={handleViewMore}>
+          View More
+        </button>
       </div>
     </>
   );
