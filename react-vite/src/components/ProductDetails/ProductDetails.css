@@ -9,7 +9,7 @@
 
 .product-details img {
     width: 400px;
-    height: 550px;
+    height: 600px;
 }
 
 .product-description {
@@ -19,10 +19,15 @@
 }
 
 .product-description h3 {
-    font-size: 25px;
+    font-size: 34px;
     margin-bottom: 5px;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+
+.p-details:nth-child(1) {
+    border-bottom: 1px solid #000000;
+    padding-bottom: 4px;
 }
 
 .p-details p {
@@ -30,6 +35,7 @@
     margin: 7px 0px;
     text-overflow: ellipsis;
     word-break: break-all;
+    font-size: 18px;
 }
 
 .product-reviews {
