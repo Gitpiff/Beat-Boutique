@@ -37,15 +37,17 @@ const deleteProductsById = (id) => ({
 });
 
 // Thunk functions
-export const getAllProducts = () => async (dispatch) => {
-  const response = await fetch('/api/products/');
-  if (response.ok) {
-    const data = await response.json();
-    if (data.errors) return;
+export const getAllProducts =
+  ({ page, size }) =>
+  async (dispatch) => {
+    const response = await fetch(`/api/products?page=${page}&page_size=${size}`);
+    if (response.ok) {
+      const data = await response.json();
+      if (data.errors) return;
 
-    dispatch(getProducts(data));
-  }
-};
+      dispatch(getProducts(data));
+    }
+  };
 
 export const getProductById = (id) => async (dispatch) => {
   const response = await fetch(`/api/products/${id}`);
@@ -112,7 +114,7 @@ export const createNewProduct = (prodData) => async (dispatch) => {
     } else {
       const errorData = await response.json();
       console.error('Error creating product:', errorData);
-      return { errors: errorData.errors }
+      return { errors: errorData.errors };
     }
   } catch (error) {
     console.error('Error creating product:', error);
@@ -169,7 +171,6 @@ export const deleteProductById = (id) => async (dispatch) => {
 // Reducer
 const initialState = {
   products: null,
-  // userProducts: {},
 };
 
 function productReducer(state = initialState, action) {
@@ -177,11 +178,18 @@ function productReducer(state = initialState, action) {
     case GET_PRODUCTS: {
       const products = {};
 
+      if (state.products === null) {
+        action.payload.forEach((product) => {
+          products[product.id] = product;
+        });
+        return products;
+      }
+
       action.payload.forEach((product) => {
         products[product.id] = product;
       });
 
-      return products;
+      return { ...state, ...products };
     }
     case GET_USER_PRODUCTS: {
       const newState = {};
@@ -191,7 +199,7 @@ function productReducer(state = initialState, action) {
       return newState;
     }
     case GET_PRODUCTS_BY_ID: {
-      return { [action.payload.id]: action.payload };
+      return { ...state, [action.payload.id]: action.payload };
     }
     case CREATE_NEW_PRODUCT: {
       return { ...state, [action.payload.id]: action.payload };
