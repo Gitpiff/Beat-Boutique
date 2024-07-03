@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getAllProducts } from '../../redux/products';
+import ProductDetail from './ProductDetail';
 import styles from './LandingPage.module.css';
 import drumSet from '../../../../images/drums-set.jpeg';
 import records from '../../../../images/record-rack.jpeg';
@@ -41,20 +41,7 @@ const LandingPage = () => {
         <h1 className={styles.header}>Selling right now</h1>
         <div className={`flex ${styles.productContainer}`}>
           {allProducts.map((products) => (
-            <div key={products.id} className={styles.productDetails}>
-              <div className={styles.product}>
-                <Link to={`products/${products.id}`}>
-                  <img src={products.images[0]?.image_url} alt="products.name" />
-                  <div className={styles.productSection}>
-                    <div className={styles.details}>
-                      <h3>{products.name}</h3>
-                      <p>${products.price}</p>
-                    </div>
-                    <p>Quantity Left: {products.inventory}</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
+            <ProductDetail key={products.id} product={products} />
           ))}
         </div>
         <button className="btn" onClick={handleViewMore}>
