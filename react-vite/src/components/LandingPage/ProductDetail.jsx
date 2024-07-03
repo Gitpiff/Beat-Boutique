@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
+import DeleteProductButton from '../DeleteProduct/DeleteProductButton';
 import styles from './LandingPage.module.css';
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = ({ product, currentUser }) => {
   return (
     <div className={styles.productDetails}>
       <div className={styles.product}>
@@ -15,6 +16,14 @@ const ProductDetail = ({ product }) => {
             <p>Quantity Left: {product.inventory}</p>
           </div>
         </Link>
+        {currentUser ? (
+          <div className="product-actions">
+            <Link to={`/products/${product?.id}/edit`} className="btn edit-btn">
+              Edit
+            </Link>
+            <DeleteProductButton product={product?.id} />
+          </div>
+        ) : null}
       </div>
     </div>
   );
