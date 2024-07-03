@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchUserProducts } from '../../redux/products';
+import { fetchUserProducts, clearAllProducts } from '../../redux/products';
 import DeleteProductButton from '../DeleteProduct/DeleteProductButton';
 import './UserProducts.css';
 
@@ -16,6 +16,10 @@ const UserProducts = () => {
     if (!sessionUser) navigate('/');
 
     dispatch(fetchUserProducts());
+
+    return () => {
+      dispatch(clearAllProducts());
+    };
   }, [dispatch, sessionUser, navigate]);
 
   if (!userProducts || userProducts === null) {

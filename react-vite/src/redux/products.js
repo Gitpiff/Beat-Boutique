@@ -4,6 +4,7 @@ const GET_USER_PRODUCTS = 'products/getUserProducts';
 const CREATE_NEW_PRODUCT = 'products/createNewProduct';
 const UPDATE_PRODUCTS_BY_ID = 'products/updateProductsById';
 const DELETE_PRODUCT_BY_ID = 'products/deleteProductById';
+const CLEAR_PRODUCTS = 'products/clearProducts';
 
 // Actions
 const getProducts = (products) => ({
@@ -34,6 +35,10 @@ const updateProductsById = (product) => ({
 const deleteProductsById = (id) => ({
   type: DELETE_PRODUCT_BY_ID,
   payload: id,
+});
+
+const clearProducts = () => ({
+  type: CLEAR_PRODUCTS,
 });
 
 // Thunk functions
@@ -168,6 +173,10 @@ export const deleteProductById = (id) => async (dispatch) => {
   }
 };
 
+export const clearAllProducts = () => async (dispatch) => {
+  dispatch(clearProducts());
+};
+
 // Reducer
 const initialState = {
   products: null,
@@ -211,6 +220,9 @@ function productReducer(state = initialState, action) {
       const products = { ...state };
       delete products[action.payload];
       return products;
+    }
+    case CLEAR_PRODUCTS: {
+      return initialState;
     }
     default:
       return state;
