@@ -1,3 +1,4 @@
+from sqlalchemy.orm import joinedload
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from ..forms.reviews import Reviews
@@ -11,13 +12,16 @@ def reviews(product_id):
     """
     Gets all product's reviews
     """
-    # reviews = Review.query.get(product_id)
-    reviews = Review.query.filter_by(product_id=product_id).all()
+    reviews = (
+        Review.query.filter_by(product_id=product_id).options(joinedload("user")).all()
+    )
 
     if not reviews:
         return jsonify([{"error": "Product not found"}])
 
     reviews_dict = [review.to_dict() for review in reviews]
+
+    print(reviews_dict)
     return jsonify(reviews_dict)
 
 
