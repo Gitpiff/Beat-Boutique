@@ -27,7 +27,7 @@ const LandingPage = () => {
   if (products.products === null) return <h1>Loading...</h1>;
 
   return (
-    <>
+    <main id={styles.productSection}>
       <div className={`flex ${styles.imageContainer}`}>
         <div className={styles.imgContainer}>
           <img className={styles.image1} src={records} alt="records" />
@@ -48,7 +48,7 @@ const LandingPage = () => {
           View More
         </button>
       </div>
-    </>
+    </main>
   );
 };
 

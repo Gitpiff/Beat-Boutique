@@ -74,7 +74,7 @@ function SignupFormModal() {
     <>
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="sign-up">
         <label>
           Email
           <input
@@ -84,7 +84,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p className="errors">{errors.email}</p>}
+        {email.length === 0 || (errors.email && <p className="errors">{errors.email}</p>)}
         <label>
           First Name
           <input
