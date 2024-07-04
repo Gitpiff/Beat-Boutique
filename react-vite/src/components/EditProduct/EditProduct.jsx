@@ -16,7 +16,7 @@ function EditProduct() {
     description: '',
     price: '',
     inventory: '',
-    type: product?.type.value,
+    type: product?.type.value || '',
   });
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function EditProduct() {
         description: product.description || '',
         price: product.price || '',
         inventory: product.inventory || '',
-        type: product?.type,
+        type: product.type || '',
       });
     }
   }, [product]);
@@ -60,7 +60,7 @@ function EditProduct() {
         alert(errorMessages);
         return;
       }
-      
+
       navigate(`/products/${id}`);
     } catch (error) {
       console.error('Error updating product: ', error);
@@ -81,7 +81,8 @@ function EditProduct() {
       <form onSubmit={handleSubmit} className="edit-form">
         <div className="form-group">
           <label>Name</label>
-          <input className='data-input'
+          <input
+            className="data-input"
             type="text"
             name="name"
             value={prodData.name}
@@ -91,7 +92,8 @@ function EditProduct() {
         </div>
         <div className="form-group">
           <label>Description</label>
-          <textarea className='data-input'
+          <textarea
+            className="data-input"
             name="description"
             value={prodData.description}
             onChange={handleChange}
@@ -99,18 +101,25 @@ function EditProduct() {
         </div>
         <div className="form-group">
           <label>Type</label>
-          <select name="type" value={prodData.type} onChange={handleChange} className='data-input' required>
+          <select
+            name="type"
+            value={prodData.type}
+            onChange={handleChange}
+            className="data-input"
+            required
+          >
             <option value="">Select Type</option>
-            <option value="MUSICAL_INSTRUMENTS">Musical Instruments</option>
-            <option value="CLOTHING">Clothing</option>
-            <option value="TAPES">Tapes</option>
-            <option value="CDS">CDs</option>
-            <option value="PINS">Pins</option>
+            <option value="Musical Instruments">Musical Instruments</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Tapes">Tapes</option>
+            <option value="CDs">CDs</option>
+            <option value="Pins">Pins</option>
           </select>
         </div>
         <div className="form-group">
           <label>Inventory</label>
-          <input className='data-input'
+          <input
+            className="data-input"
             type="number"
             name="inventory"
             value={prodData.inventory}
@@ -121,7 +130,8 @@ function EditProduct() {
         </div>
         <div className="form-group">
           <label>Price</label>
-          <input className='data-input'
+          <input
+            className="data-input"
             type="number"
             name="price"
             value={prodData.price}
@@ -131,10 +141,12 @@ function EditProduct() {
           />
         </div>
         <div className="button-group">
-        <button type="submit" className="submit-button">Update Product</button>
-        <button type="button" onClick={handleCancel} className="cancel-button">
-          Cancel
-        </button>
+          <button type="submit" className="btn confirm-btn">
+            Update Product
+          </button>
+          <button type="button" onClick={handleCancel} className="btn edit-btn">
+            Cancel
+          </button>
         </div>
       </form>
     </div>
