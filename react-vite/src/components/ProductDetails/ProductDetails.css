@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #edf2f4;
-    gap: 30px;
+    gap: 50px;
     margin: 20px 0px;
     padding-bottom: 25px;
 }
@@ -31,15 +31,17 @@
 }
 
 .p-details p {
-    width: 250px;
+    width: 270px;
     margin: 7px 0px;
     text-overflow: ellipsis;
-    word-break: break-all;
+    word-break: break-word;
     font-size: 18px;
 }
 
 .product-reviews {
-    margin: 15px 0px 10px 0px;
+    display: flex;
+    gap: 50px;
+    margin: 15px 0;
 }
 
 .reviews {
