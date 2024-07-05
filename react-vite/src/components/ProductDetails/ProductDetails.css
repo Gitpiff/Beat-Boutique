@@ -43,21 +43,3 @@
     gap: 50px;
     margin: 15px 0;
 }
-
-.reviews {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 10px 0px;
-    height: 140px;
-    background-color: #edf2f4;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.user-reviews {
-    display: flex;
-    flex-direction: column;
-    height: 100px;
-    justify-content: space-around;
-}

@@ -4,8 +4,32 @@
   box-sizing: content-box;
 }
 
-body {
-  display: block;
+.reviews {
+  margin: 10px 0px;
+  background-color: #edf2f4;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.user-reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.users {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.users h3 {
+  font-weight: 600;
+}
+
+.btn-section {
+  margin-top: 8px;
+  margin-left: -4px;
 }
 
 .reviews-container span {
@@ -33,4 +57,16 @@ body {
 
 .star.yellow {
   color: yellow;
+}
+
+.update-review {
+  gap: 12px;
+}
+
+.deleteReviewModal {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  text-align: center;
+  width: 400px;
 }

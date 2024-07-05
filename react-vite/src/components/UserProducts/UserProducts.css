@@ -6,6 +6,11 @@
   text-align: center;
 }
 
+.header a {
+  display: inline-block;
+  margin: 8px;
+}
+
 .product-grid {
   display: flex;
   flex-wrap: wrap;
@@ -35,21 +40,10 @@
   padding-left: 5px;
 }
 
-.create-product-button {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #54b0c9;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+.deleteProductModal {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
   text-align: center;
-  cursor: pointer;
-  margin: 20px auto;
-}
-
-.create-product-button:hover {
-  background-color: #3c3a37;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px;
 }

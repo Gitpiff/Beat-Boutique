@@ -30,7 +30,7 @@ const UserProducts = () => {
     <div className="user-products-page">
       <div className="header">
         <h1>My Products</h1>
-        <Link to="/products/new" className="create-product-button">
+        <Link to="/products/new" className="btn confirm-btn">
           Create New Product
         </Link>
       </div>
