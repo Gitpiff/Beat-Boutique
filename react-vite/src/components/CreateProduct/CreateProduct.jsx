@@ -37,7 +37,10 @@ function CreateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (prodData.price > 100000) return alert('Price is too high!');
+    if (prodData.price > 100000) {
+      alert('Price is too high!');
+      return;
+    }
 
     if (!selectedImage) {
       alert('Please select an image before submitting.');
@@ -52,6 +55,12 @@ function CreateProduct() {
         };
 
         const newProduct = await dispatch(createNewProduct(newProductData));
+
+        if (newProduct && newProduct.errors) {
+          const errorMessages = newProduct.errors.join('\n');
+          alert(errorMessages);
+          return;
+        }
 
         if (newProduct && selectedImage) {
           const formData = new FormData();

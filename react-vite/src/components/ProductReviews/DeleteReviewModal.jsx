@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import { deleteProductReview } from '../../redux/reviews';
+import './ProductReviews.css';
 
 const DeleteReviewModal = ({ review }) => {
   const dispatch = useDispatch();
@@ -11,7 +12,6 @@ const DeleteReviewModal = ({ review }) => {
     e.preventDefault();
     dispatch(deleteProductReview(review.id))
       .then(closeModal)
-      .then(location.reload())
       .catch(async (response) => {
         const data = await response.json();
         return data;

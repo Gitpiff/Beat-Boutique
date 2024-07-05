@@ -48,7 +48,7 @@ export default function CreateReviewModal() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="reviews-container">
-        {errors.review && <span>{errors.review}</span>}
+        {errors.review && <span className="errors">{errors.review}</span>}
         {errors.stars && <span>{errors.stars}</span>}
 
         <textarea

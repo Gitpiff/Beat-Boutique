@@ -4,6 +4,7 @@ const GET_USER_PRODUCTS = 'products/getUserProducts';
 const CREATE_NEW_PRODUCT = 'products/createNewProduct';
 const UPDATE_PRODUCTS_BY_ID = 'products/updateProductsById';
 const DELETE_PRODUCT_BY_ID = 'products/deleteProductById';
+const CLEAR_PRODUCTS = 'products/clearProducts';
 
 // Actions
 const getProducts = (products) => ({
@@ -36,16 +37,22 @@ const deleteProductsById = (id) => ({
   payload: id,
 });
 
-// Thunk functions
-export const getAllProducts = () => async (dispatch) => {
-  const response = await fetch('/api/products/');
-  if (response.ok) {
-    const data = await response.json();
-    if (data.errors) return;
+const clearProducts = () => ({
+  type: CLEAR_PRODUCTS,
+});
 
-    dispatch(getProducts(data));
-  }
-};
+// Thunk functions
+export const getAllProducts =
+  ({ page, size }) =>
+  async (dispatch) => {
+    const response = await fetch(`/api/products?page=${page}&page_size=${size}`);
+    if (response.ok) {
+      const data = await response.json();
+      if (data.errors) return;
+
+      dispatch(getProducts(data));
+    }
+  };
 
 export const getProductById = (id) => async (dispatch) => {
   const response = await fetch(`/api/products/${id}`);
@@ -84,7 +91,7 @@ export const createNewProduct = (prodData) => async (dispatch) => {
       const newProduct = await response.json();
       if (newProduct.errors) {
         console.error('Error creating product:', newProduct.errors);
-        return null;
+        return { errors: newProduct.errors };
       }
 
       dispatch(createNewProducts(newProduct));
@@ -104,17 +111,19 @@ export const createNewProduct = (prodData) => async (dispatch) => {
         if (!imageResponse.ok) {
           const errorData = await imageResponse.json();
           console.error('Error adding product image:', errorData);
+          return { errors: errorData.errors };
         }
       }
 
       return newProduct;
     } else {
-      const errorData = await response.text();
-      throw new Error(`Server responded with ${response.status}: ${errorData}`);
+      const errorData = await response.json();
+      console.error('Error creating product:', errorData);
+      return { errors: errorData.errors };
     }
   } catch (error) {
     console.error('Error creating product:', error);
-    return null;
+    return { errors: ['An error occurred while creating the product.'] };
   }
 };
 
@@ -137,9 +146,17 @@ export const updateProductById = (id, product) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
 
-    if (data.errors) return;
+    if (data.errors) {
+      console.error('Error updating product:', data.errors);
+      return { errors: data.errors };
+    }
 
     dispatch(updateProductsById(data));
+    return data;
+  } else {
+    const errorData = await response.json();
+    console.error('Error updating product:', errorData);
+    return { errors: errorData.errors };
   }
 };
 
@@ -156,10 +173,13 @@ export const deleteProductById = (id) => async (dispatch) => {
   }
 };
 
+export const clearAllProducts = () => async (dispatch) => {
+  dispatch(clearProducts());
+};
+
 // Reducer
 const initialState = {
   products: null,
-  // userProducts: {},
 };
 
 function productReducer(state = initialState, action) {
@@ -167,11 +187,18 @@ function productReducer(state = initialState, action) {
     case GET_PRODUCTS: {
       const products = {};
 
+      if (state.products === null) {
+        action.payload.forEach((product) => {
+          products[product.id] = product;
+        });
+        return products;
+      }
+
       action.payload.forEach((product) => {
         products[product.id] = product;
       });
 
-      return products;
+      return { ...state, ...products };
     }
     case GET_USER_PRODUCTS: {
       const newState = {};
@@ -181,7 +208,7 @@ function productReducer(state = initialState, action) {
       return newState;
     }
     case GET_PRODUCTS_BY_ID: {
-      return { [action.payload.id]: action.payload };
+      return { ...state, [action.payload.id]: action.payload };
     }
     case CREATE_NEW_PRODUCT: {
       return { ...state, [action.payload.id]: action.payload };
@@ -193,6 +220,9 @@ function productReducer(state = initialState, action) {
       const products = { ...state };
       delete products[action.payload];
       return products;
+    }
+    case CLEAR_PRODUCTS: {
+      return initialState;
     }
     default:
       return state;

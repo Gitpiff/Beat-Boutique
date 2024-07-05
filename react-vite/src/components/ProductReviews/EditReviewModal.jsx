@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateProductReview } from '../../redux/reviews';
 import { useModal } from '../../context/Modal';
-import { CiStar } from 'react-icons/ci';
+import { FaRegStar } from 'react-icons/fa';
 
 export default function EditReviewModal({ review }) {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ export default function EditReviewModal({ review }) {
 
   return (
     <section>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="update-review">
         <h1>Changed your mind? </h1>
         {errors.review && <span>{errors.review}</span>}
         {errors.stars && <span>{errors.stars}</span>}
@@ -63,7 +63,7 @@ export default function EditReviewModal({ review }) {
                     onMouseEnter={() => setHover(index)}
                     onMouseLeave={() => setHover(stars)}
                   >
-                    <CiStar />
+                    <FaRegStar />
                   </button>
                 </div>
               </>
