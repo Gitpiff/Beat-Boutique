@@ -53,9 +53,11 @@ const ProductReviews = () => {
         <div className="reviews" key={review?.id}>
           <div className="user-reviews">
             <div className="users">
-              <h3>
-                {review?.user.first_name} {review?.user.last_name}
-              </h3>
+              {review?.user && (
+                <h3>
+                  {review.user.first_name} {review.user.last_name}
+                </h3>
+              )}
 
               <small>
                 {getDate(review?.created_at) === 'Today'

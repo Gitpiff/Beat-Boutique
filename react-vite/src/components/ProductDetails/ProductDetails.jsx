@@ -26,7 +26,10 @@ const ProductDetails = () => {
   const sessionUser = useSelector((state) => state.session.user);
 
   // Get reviews
-  const reviews = Object.values(useSelector((state) => state.reviews));
+  const review = useSelector((state) => state.reviews);
+  const reviews = Object.values(review);
+
+  console.log(reviews, 'reviews');
 
   const notify = () => {
     toast.success(
@@ -61,6 +64,7 @@ const ProductDetails = () => {
   };
 
   if (!product) return <h1>Loading...</h1>;
+
   return (
     <section className="flex-wrapper">
       <ToastContainer stacked />
@@ -112,7 +116,7 @@ const ProductDetails = () => {
 
       <div className="product-reviews">
         <h2>Product Reviews</h2>
-        {reviews[0] === null || reviews[0].error ? (
+        {reviews[0] === null || reviews.length === 0 ? (
           <>
             {sessionUser && sessionUser.id === product.owner_id ? (
               <h1>No reviews found </h1>
