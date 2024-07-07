@@ -76,7 +76,7 @@ function ProfileButton() {
                   <AiOutlineShoppingCart size={30} cursor={'pointer'} color={'black'} />
 
                   {shoppingCart.cart && Object.keys(shoppingCart.cart).length > 0 && (
-                    <span>{Object.keys(shoppingCart.cart).length}</span>
+                    <span>{shoppingCart.totalItems}</span>
                   )}
                 </NavLink>
               </li>

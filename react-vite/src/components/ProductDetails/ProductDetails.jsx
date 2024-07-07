@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 import { getProductById } from '../../redux/products';
 import { getProductReview } from '../../redux/reviews';
+import { addProductToCart } from '../../redux/shopping-cart';
 import ProductReviews from '../ProductReviews';
 import ReviewButton from '../ProductReviews/ReviewButton';
-import { addProductToCart } from '../../redux/shopping-cart';
+import ToastContent from './ToastContent';
 import './ProductDetails.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -23,7 +26,31 @@ const ProductDetails = () => {
   const sessionUser = useSelector((state) => state.session.user);
 
   // Get reviews
-  const reviews = Object.values(useSelector((state) => state.reviews));
+  const review = useSelector((state) => state.reviews);
+  const reviews = Object.values(review);
+
+  console.log(reviews, 'reviews');
+
+  const notify = () => {
+    toast.success(
+      <ToastContent
+        imageUrl={product.images[0].image_url}
+        productName={product.name}
+        price={product.price}
+      />,
+      {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      },
+    );
+  };
 
   // Get selected product
   useEffect(() => {
@@ -31,9 +58,16 @@ const ProductDetails = () => {
     dispatch(getProductReview(productId));
   }, [dispatch, productId]);
 
+  const addToCart = () => {
+    dispatch(addProductToCart(product));
+    notify();
+  };
+
   if (!product) return <h1>Loading...</h1>;
+
   return (
     <section className="flex-wrapper">
+      <ToastContainer stacked />
       <div className="product-details">
         <div>
           {/* Conditional rendering of images if they exist */}
@@ -65,10 +99,7 @@ const ProductDetails = () => {
 
           <div className="p-details">
             {sessionUser && sessionUser.id !== product.owner_id && (
-              <button
-                className="btn confirm-btn"
-                onClick={() => dispatch(addProductToCart(product))}
-              >
+              <button className="btn confirm-btn" onClick={addToCart}>
                 Add to Cart
               </button>
             )}
@@ -85,7 +116,7 @@ const ProductDetails = () => {
 
       <div className="product-reviews">
         <h2>Product Reviews</h2>
-        {reviews[0] === null || reviews[0].error ? (
+        {reviews[0] === null || reviews.length === 0 ? (
           <>
             {sessionUser && sessionUser.id === product.owner_id ? (
               <h1>No reviews found </h1>

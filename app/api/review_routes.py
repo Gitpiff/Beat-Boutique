@@ -12,12 +12,14 @@ def reviews(product_id):
     """
     Gets all product's reviews
     """
+    product = Product.query.get(product_id)
+
+    if not product:
+        return jsonify({"error": "Product not found"}), 400
+
     reviews = (
         Review.query.filter_by(product_id=product_id).options(joinedload("user")).all()
     )
-
-    if not reviews:
-        return jsonify([{"error": "Product not found"}])
 
     reviews_dict = [review.to_dict() for review in reviews]
 
