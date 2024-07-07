@@ -84,7 +84,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-section,
 form {
   border-radius: 10px;
   width: 500px;

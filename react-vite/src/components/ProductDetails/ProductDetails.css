@@ -1,3 +1,21 @@
+.toast-content {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toast-content span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 110px;
+}
+
+.toast-img {
+    height: 50px;
+    width: 50px;
+}
+
 .product-details {
     display: flex;
     justify-content: space-between;
@@ -22,7 +40,9 @@
     font-size: 34px;
     margin-bottom: 5px;
     text-overflow: ellipsis;
-    word-break: break-all;
+    word-break: auto-phrase;
+    width: 350px;
+    overflow: hidden;
 }
 
 .p-details:nth-child(1) {
