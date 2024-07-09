@@ -23,7 +23,6 @@ def reviews(product_id):
 
     reviews_dict = [review.to_dict() for review in reviews]
 
-    print(reviews_dict)
     return jsonify(reviews_dict)
 
 
@@ -55,7 +54,7 @@ def new_review(product_id):
 
         return new_review.to_dict()
 
-    return form.errors, 400
+    return jsonify(form.errors), 400
 
 
 @review_routes.route("/<int:review_id>", methods=["PUT"])
