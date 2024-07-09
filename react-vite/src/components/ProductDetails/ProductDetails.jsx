@@ -29,8 +29,6 @@ const ProductDetails = () => {
   const review = useSelector((state) => state.reviews);
   const reviews = Object.values(review);
 
-  console.log(reviews, 'reviews');
-
   const notify = () => {
     toast.success(
       <ToastContent

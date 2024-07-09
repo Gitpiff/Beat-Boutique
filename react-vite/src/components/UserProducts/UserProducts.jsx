@@ -29,7 +29,7 @@ const UserProducts = () => {
   return (
     <div className="user-products-page">
       <div className="header">
-        <h1>My Products</h1>
+        {products.length === 0 ? <h1>No Products Found</h1> : <h1>My Products</h1>}
         <Link to="/products/new" className="btn confirm-btn">
           Create New Product
         </Link>

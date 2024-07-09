@@ -1,3 +1,9 @@
+#shoppingCart {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 #shoppingCart>h2 {
     margin: 20px 0px;
     margin-left: 85px;
@@ -40,6 +46,7 @@
     display: flex;
     justify-content: space-around;
     width: 1400px;
+    padding-bottom: 12px;
 }
 
 .itemQuantity {
@@ -53,6 +60,8 @@
     flex-direction: column;
     justify-content: space-evenly;
     height: 250px;
+    position: sticky;
+    top: 20px;
 }
 
 .orderSummary {
