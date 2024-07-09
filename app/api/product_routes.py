@@ -54,7 +54,7 @@ def get_current_user_products():
         .filter_by(owner_id=user_id)
         .all()
     )
-    print(user_products)
+
     return jsonify([product.to_dict() for product in user_products])
 
 
