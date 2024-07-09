@@ -45,11 +45,15 @@ export const createNewReview = (id, reviews) => async (dispatch) => {
       review,
     }),
   });
+
   if (response.ok) {
     const data = await response.json();
     if (data.errors) return;
 
-    dispatch(createNewReviews(data));
+    return dispatch(createNewReviews(data));
+  } else {
+    const errors = await response.json();
+    throw new Error(errors.review || 'Failed to create review');
   }
 };
 

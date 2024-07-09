@@ -36,20 +36,20 @@ export default function CreateReviewModal() {
     };
 
     return dispatch(createNewReview(productId, reviewPayload))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
-        }
+      .then(() => {
+        closeModal();
+      })
+      .catch(async () => {
+        setErrors({
+          review: 'Review must be 10 characters at minimum',
+        });
       });
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="reviews-container">
-        {errors.review && <span className="errors">{errors.review}</span>}
-        {errors.stars && <span>{errors.stars}</span>}
+        <h2>Leave a review</h2>
 
         <textarea
           placeholder="Leave your review here.."
@@ -58,6 +58,8 @@ export default function CreateReviewModal() {
           cols="77"
           rows="10"
         />
+
+        {errors.review && <span className="errors">{errors.review}</span>}
 
         <div className="starsContainer">
           {[...Array(5)].map((stars, index) => {
@@ -79,6 +81,7 @@ export default function CreateReviewModal() {
             );
           })}
         </div>
+        {/* {errors.stars && <span>{errors.stars}</span>} */}
       </form>
     </div>
   );
