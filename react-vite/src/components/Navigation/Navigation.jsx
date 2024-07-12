@@ -13,7 +13,7 @@ function Navigation() {
     <nav>
       <div className="logo">
         <NavLink to="/">BeatBoutique</NavLink>
-        <input className="search-bar" type="text" placeholder="Search..." />
+        {/* <input className="search-bar" type="text" placeholder="Search..." /> */}
       </div>
       <ul>
         {user ? (
