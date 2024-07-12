@@ -20,10 +20,14 @@ const ProductReviews = () => {
   const values = useSelector((state) => state.reviews);
   const reviews = Object.values(values);
 
-  const userRatings = reviews.reduce((sum, review) => {
-    const rating = sum.rating + review.rating;
-    return rating / reviews.length;
-  });
+  const avgRating = (reviews) => {
+    let total = 0;
+    reviews.forEach((review) => {
+      total += review.rating;
+    });
+
+    return total / reviews.length;
+  };
 
   useEffect(() => {
     dispatch(getProductReview(productId));
@@ -47,7 +51,7 @@ const ProductReviews = () => {
     <section>
       <h1>
         Average Rating:{' '}
-        {reviews.length === 1 ? userRatings.rating : userRatings.toFixed(1)}
+        {reviews.length === 1 ? avgRating(reviews) : avgRating(reviews).toFixed(1)}
       </h1>
       {reviews.map((review) => (
         <div className="reviews" key={review?.id}>
