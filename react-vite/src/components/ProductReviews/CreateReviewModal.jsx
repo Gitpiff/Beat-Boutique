@@ -36,9 +36,7 @@ export default function CreateReviewModal() {
     };
 
     return dispatch(createNewReview(productId, reviewPayload))
-      .then(() => {
-        closeModal();
-      })
+      .then(closeModal)
       .catch(async () => {
         setErrors({
           review: 'Review must be 10 characters at minimum',
@@ -62,25 +60,29 @@ export default function CreateReviewModal() {
         {errors.review && <span className="errors">{errors.review}</span>}
 
         <div className="starsContainer">
-          {[...Array(5)].map((stars, index) => {
+          {[...Array(5)].map((star, index) => {
             index += 1;
             return (
               <>
                 <div key={`star${index}`}>
                   <button
+                    type="button"
                     id="stars"
                     className={index <= (hover || stars) ? 'star yellow' : 'star'}
                     onClick={() => setStars(index)}
                     onMouseEnter={() => setHover(index)}
                     onMouseLeave={() => setHover(stars)}
                   >
-                    <CiStar />
+                    <CiStar size={35} />
                   </button>
                 </div>
               </>
             );
           })}
         </div>
+        <button type="submit" className="btn confirm-btn">
+          Leave a Review
+        </button>
         {/* {errors.stars && <span>{errors.stars}</span>} */}
       </form>
     </div>

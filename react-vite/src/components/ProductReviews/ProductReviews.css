@@ -68,6 +68,11 @@
   gap: 12px;
 }
 
+.update-review h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
 .deleteReviewModal {
   display: flex;
   gap: 10px;

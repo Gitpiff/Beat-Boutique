@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateProductReview } from '../../redux/reviews';
 import { useModal } from '../../context/Modal';
-import { FaRegStar } from 'react-icons/fa';
+import { CiStar } from 'react-icons/ci';
 
 export default function EditReviewModal({ review }) {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ export default function EditReviewModal({ review }) {
   return (
     <section>
       <form onSubmit={handleSubmit} className="update-review">
-        <h1>Changed your mind? </h1>
+        <h2>Changed your mind? </h2>
         {errors.review && <span>{errors.review}</span>}
         {errors.stars && <span>{errors.stars}</span>}
 
@@ -52,24 +52,28 @@ export default function EditReviewModal({ review }) {
         />
 
         <div className="starsContainer">
-          {[...Array(5)].map((stars, index) => {
+          {[...Array(5)].map((star, index) => {
             index += 1;
             return (
               <>
-                <div key={index} style={{ display: 'flex', flexDirection: 'row' }}>
+                <div key={index}>
                   <button
+                    type="button"
                     className={index <= (hover || stars) ? 'star yellow' : 'star'}
                     onClick={() => setStars(index)}
                     onMouseEnter={() => setHover(index)}
                     onMouseLeave={() => setHover(stars)}
                   >
-                    <FaRegStar />
+                    <CiStar size={35} />
                   </button>
                 </div>
               </>
             );
           })}
         </div>
+        <button type="submit" className="btn confirm-btn">
+          Update Review
+        </button>
       </form>
     </section>
   );
