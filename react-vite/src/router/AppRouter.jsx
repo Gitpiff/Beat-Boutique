@@ -8,7 +8,7 @@ import UserProducts from '../components/UserProducts';
 import EditProduct from '../components/EditProduct';
 import Checkout from '../components/Checkout';
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
