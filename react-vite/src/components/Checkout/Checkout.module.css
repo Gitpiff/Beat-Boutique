@@ -27,12 +27,20 @@
 
 .img h2 {
     margin: 0px 20px;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+    width: 230px;
 }
 
 .itemDetails {
     display: flex;
     gap: 25px;
     text-align: end;
+}
+
+.itemDetails h2 {
+    margin-bottom: 8px;
 }
 
 .shoppingCartBag {
@@ -55,6 +63,10 @@
     align-items: center;
 }
 
+.itemQuantity button {
+    padding: 8px;
+}
+
 .totalPrice {
     display: flex;
     flex-direction: column;
@@ -62,6 +74,11 @@
     height: 250px;
     position: sticky;
     top: 20px;
+}
+
+.totalPrice button {
+    padding: 16px;
+    font-size: 18px;
 }
 
 .orderSummary {
